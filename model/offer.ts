@@ -14,13 +14,13 @@ import { Lock } from './lock';
 
 
 export interface Offer { 
+    lock: Lock;
     date: string;
     in_price_included: string;
     in_price_excluded: string;
     payment: string;
     delivery: string;
     id: number;
-    lock: Lock;
     timestamp: string;
     ordered_articles: Array<OrderedArticle>;
     pdf?: string;

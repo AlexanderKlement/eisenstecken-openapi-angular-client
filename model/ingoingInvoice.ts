@@ -15,13 +15,13 @@ import { Lock } from './lock';
 
 
 export interface IngoingInvoice { 
+    lock: Lock;
     number: string;
     name: string;
     date: string;
     id: number;
     timestamp: string;
     payment?: Payment;
-    lock: Lock;
     articles: Array<OrderedArticle>;
 }
 

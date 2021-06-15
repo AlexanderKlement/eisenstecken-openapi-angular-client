@@ -17,10 +17,10 @@ import { Lock } from './lock';
 
 
 export interface Article { 
+    lock: Lock;
     mod_number: string;
     price: number;
     id: number;
-    lock: Lock;
     unit: Unit;
     name: Text;
     description: Text;

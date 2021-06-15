@@ -38,6 +38,10 @@ import { OfferUpdate } from '../model/models';
 import { Order } from '../model/models';
 import { OrderCreate } from '../model/models';
 import { OrderUpdate } from '../model/models';
+import { OutgoingInvoice } from '../model/models';
+import { OutgoingInvoiceCreate } from '../model/models';
+import { PaymentCreate } from '../model/models';
+import { ReminderCreate } from '../model/models';
 import { Right } from '../model/models';
 import { Stock } from '../model/models';
 import { StockCreate } from '../model/models';
@@ -131,6 +135,44 @@ export interface DefaultServiceInterface {
      * @param orderCreate 
      */
     createOrderOrderPost(orderCreate: OrderCreate, extraHttpRequestParams?: any): Observable<Order>;
+
+    /**
+     * Create Outgoing Invoice
+     * 
+     * @param jobId 
+     * @param outgoingInvoiceCreate 
+     */
+    createOutgoingInvoiceOutgoingInvoiceJobIdPost(jobId: number, outgoingInvoiceCreate: OutgoingInvoiceCreate, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Create Payment
+     * 
+     * @param outgoingInvoiceId 
+     * @param paymentCreate 
+     */
+    createPaymentOutgoingInvoicePaymentOutgoingInvoiceIdAddPost(outgoingInvoiceId: number, paymentCreate: PaymentCreate, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Create Payment
+     * 
+     * @param outgoingInvoiceId 
+     */
+    createPaymentOutgoingInvoicePaymentOutgoingInvoiceIdRemovePost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Create Reminder
+     * 
+     * @param outgoingInvoiceId 
+     * @param reminderCreate 
+     */
+    createReminderOutgoingInvoiceReminderOutgoingInvoiceIdAddPost(outgoingInvoiceId: number, reminderCreate: ReminderCreate, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Create Reminder
+     * 
+     * @param outgoingInvoiceId 
+     */
+    createReminderOutgoingInvoiceReminderOutgoingInvoiceIdRemovePost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
 
     /**
      * Create Stock
@@ -231,6 +273,13 @@ export interface DefaultServiceInterface {
     deleteOrderOrderOrderIdDelete(orderId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Delete Outgoing Invoice
+     * 
+     * @param outgoingInvoiceId 
+     */
+    deleteOutgoingInvoiceOutgoingInvoiceOutgoingInvoiceIdDelete(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Delete Stock
      * 
      * @param stockId 
@@ -280,6 +329,166 @@ export interface DefaultServiceInterface {
      * @param requestBody 
      */
     grantRightsToUserUsersRightsUserIdPost(userId: number, requestBody: Array<string>, extraHttpRequestParams?: any): Observable<User>;
+
+    /**
+     * Lock Article
+     * 
+     * @param articleId 
+     */
+    lockArticleArticleLockArticleIdPost(articleId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Article
+     * 
+     * @param articleId 
+     */
+    lockArticleArticleUnlockArticleIdPost(articleId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Calendar
+     * 
+     * @param calendarId 
+     */
+    lockCalendarCalendarLockCalendarIdPost(calendarId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Calendar
+     * 
+     * @param calendarId 
+     */
+    lockCalendarCalendarUnlockCalendarIdPost(calendarId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Client
+     * 
+     * @param clientId 
+     */
+    lockClientClientLockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Client
+     * 
+     * @param clientId 
+     */
+    lockClientClientUnlockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Ingoing Invoice
+     * 
+     * @param ingoingInvoiceId 
+     */
+    lockIngoingInvoiceIngoingInvoiceLockIngoingInvoiceIdPost(ingoingInvoiceId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Ingoing Invoice
+     * 
+     * @param ingoingInvoiceId 
+     */
+    lockIngoingInvoiceIngoingInvoiceUnlockIngoingInvoiceIdPost(ingoingInvoiceId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Job
+     * 
+     * @param jobId 
+     */
+    lockJobJobLockJobIdPost(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Job
+     * 
+     * @param jobId 
+     */
+    lockJobJobUnlockJobIdPost(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Offer
+     * 
+     * @param offerId 
+     */
+    lockOfferOfferLockOfferIdPost(offerId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Offer
+     * 
+     * @param offerId 
+     */
+    lockOfferOfferUnlockOfferIdPost(offerId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Order
+     * 
+     * @param orderId 
+     */
+    lockOrderOrderLockOrderIdPost(orderId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Order
+     * 
+     * @param orderId 
+     */
+    lockOrderOrderUnlockOrderIdPost(orderId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Outgoing Invoice
+     * 
+     * @param outgoingInvoiceId 
+     */
+    lockOutgoingInvoiceOutgoingInvoiceLockOutgoingInvoiceIdPost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Outgoing Invoice
+     * 
+     * @param outgoingInvoiceId 
+     */
+    lockOutgoingInvoiceOutgoingInvoiceUnlockOutgoingInvoiceIdPost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Stock
+     * 
+     * @param stockId 
+     */
+    lockStockStockLockStockIdPost(stockId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Stock
+     * 
+     * @param stockId 
+     */
+    lockStockStockUnlockStockIdPost(stockId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Unit
+     * 
+     * @param supplierId 
+     */
+    lockUnitSupplierLockSupplierIdPost(supplierId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Unit
+     * 
+     * @param supplierId 
+     */
+    lockUnitSupplierUnlockSupplierIdPost(supplierId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Unit
+     * 
+     * @param unitId 
+     */
+    lockUnitUnitLockUnitIdPost(unitId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Unit
+     * 
+     * @param unitId 
+     */
+    lockUnitUnitUnlockUnitIdPost(unitId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Logged In
+     * 
+     */
+    loggedInTokenValidationGet(extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Login For Access Token
@@ -370,6 +579,14 @@ export interface DefaultServiceInterface {
      * @param limit 
      */
     readOrdersOrderGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Order>>;
+
+    /**
+     * Read Outgoing Invoices
+     * 
+     * @param skip 
+     * @param limit 
+     */
+    readOutgoingInvoicesOutgoingInvoiceGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<OutgoingInvoice>>;
 
     /**
      * Read Stocks
@@ -509,6 +726,14 @@ export interface DefaultServiceInterface {
      * @param orderUpdate 
      */
     updateOrderOrderOrderIdPut(orderId: number, orderUpdate: OrderUpdate, extraHttpRequestParams?: any): Observable<Order>;
+
+    /**
+     * Update Outgoing Invoice
+     * 
+     * @param outgoingInvoiceId 
+     * @param outgoingInvoiceCreate 
+     */
+    updateOutgoingInvoiceOutgoingInvoiceOutgoingInvoiceIdPut(outgoingInvoiceId: number, outgoingInvoiceCreate: OutgoingInvoiceCreate, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
 
     /**
      * Update Stock

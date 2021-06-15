@@ -13,7 +13,7 @@
 
 export interface Payment { 
     note?: string;
-    amount: string;
+    amount: number;
     date: string;
     id: number;
     timestamp: string;

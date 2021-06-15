@@ -14,8 +14,8 @@ import { Lock } from './lock';
 
 
 export interface Stock { 
-    id: number;
     lock: Lock;
+    id: number;
     orderable: Orderable;
 }
 

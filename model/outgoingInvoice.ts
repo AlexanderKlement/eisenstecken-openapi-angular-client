@@ -10,16 +10,24 @@
  * Do not edit the class manually.
  */
 import { Payment } from './payment';
+import { Reminder } from './reminder';
+import { OrderedArticle } from './orderedArticle';
 import { Lock } from './lock';
 
 
 export interface OutgoingInvoice { 
+    lock: Lock;
     number: string;
     date: string;
+    in_price_included: string;
+    in_price_excluded: string;
+    payment_text: string;
+    delivery: string;
     id: number;
-    lock: Lock;
     timestamp: string;
     pdf: string;
     payment?: Payment;
+    articles: Array<OrderedArticle>;
+    reminders: Array<Reminder>;
 }
 

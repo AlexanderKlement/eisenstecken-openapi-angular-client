@@ -9,13 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { UserEssential } from './userEssential';
 
 
 export interface Lock { 
     key: string;
     id: number;
-    user: User;
+    user: UserEssential;
     timestamp: string;
+    locked: boolean;
 }
 

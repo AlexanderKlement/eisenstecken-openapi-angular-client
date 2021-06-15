@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
@@ -48,7 +47,12 @@ model/orderableType.ts
 model/orderedArticle.ts
 model/orderedArticleCreate.ts
 model/outgoingInvoice.ts
+model/outgoingInvoiceCreate.ts
 model/payment.ts
+model/paymentCreate.ts
+model/reminder.ts
+model/reminderCreate.ts
+model/reminderLevel.ts
 model/right.ts
 model/stock.ts
 model/stockCreate.ts
@@ -60,6 +64,7 @@ model/unit.ts
 model/unitCreate.ts
 model/user.ts
 model/userCreate.ts
+model/userEssential.ts
 model/userUpdate.ts
 model/validationError.ts
 model/vat.ts

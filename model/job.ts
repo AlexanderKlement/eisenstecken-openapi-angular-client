@@ -20,9 +20,9 @@ import { Lock } from './lock';
 
 
 export interface Job { 
+    lock: Lock;
     description: string;
     id: number;
-    lock: Lock;
     orderable: Orderable;
     timestamp: string;
     year: number;

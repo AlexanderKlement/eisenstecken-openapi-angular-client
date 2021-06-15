@@ -17,12 +17,12 @@ import { Lock } from './lock';
 
 
 export interface Supplier { 
+    lock: Lock;
     mail1: string;
     mail2: string;
     tel1: string;
     tel2: string;
     id: number;
-    lock: Lock;
     orderable: Orderable;
     address: Address;
     language: Language;

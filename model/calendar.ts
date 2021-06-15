@@ -14,6 +14,7 @@ import { Lock } from './lock';
 
 
 export interface Calendar { 
+    lock: Lock;
     title: string;
     description: string;
     start_time: string;
@@ -21,6 +22,5 @@ export interface Calendar {
     id: number;
     timestamp: string;
     user: User;
-    lock: Lock;
 }
 

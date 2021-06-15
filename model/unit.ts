@@ -14,8 +14,8 @@ import { Lock } from './lock';
 
 
 export interface Unit { 
-    id: number;
     lock: Lock;
+    id: number;
     _short: Text;
     name: Text;
 }

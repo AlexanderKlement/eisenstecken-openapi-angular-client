@@ -14,6 +14,7 @@ import { Lock } from './lock';
 
 
 export interface Client { 
+    lock: Lock;
     name: string;
     lastname: string;
     isCompany: boolean;
@@ -30,7 +31,6 @@ export interface Client {
     cup: string;
     cig: string;
     id: number;
-    lock: Lock;
     gender: Gender;
 }
 

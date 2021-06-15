@@ -16,9 +16,9 @@ import { Lock } from './lock';
 
 
 export interface Order { 
+    lock: Lock;
     description: string;
     id: number;
-    lock: Lock;
     order_from: Orderable;
     order_to: Orderable;
     create_date: string;
