@@ -1,11 +1,10 @@
-## eisenstecken-openapi-angular-library@6.9.5
+## eisenstecken-openapi-angular-library@7.0.2
 
 ### Building
 
 To install the required dependencies and to build the typescript sources run:
 ```
 npm install
-npm i -D typescript@4.2.3
 npm run build
 ```
 
@@ -20,7 +19,7 @@ Navigate to the folder of your consuming project and run one of next commands.
 _published:_
 
 ```
-npm install eisenstecken-openapi-angular-library@6.9.5 --save
+npm install eisenstecken-openapi-angular-library@7.0.2 --save
 ```
 
 _without publishing (not recommended):_

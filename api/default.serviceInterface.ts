@@ -527,12 +527,11 @@ export interface DefaultServiceInterface {
     readCategoriesCategoryGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Category>>;
 
     /**
-     * Read Chat Messages
+     * Read Chat Messages Since Id
      * 
-     * @param skip 
-     * @param limit 
+     * @param lastId 
      */
-    readChatMessagesChatsGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<ChatMessage>>;
+    readChatMessagesSinceIdChatsLastIdGet(lastId: number, extraHttpRequestParams?: any): Observable<Array<ChatMessage>>;
 
     /**
      * Read Clients

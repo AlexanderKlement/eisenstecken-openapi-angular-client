@@ -3759,28 +3759,27 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Read Chat Messages
-     * @param skip 
-     * @param limit 
+     * Read Chat Messages Since Id
+     * @param lastId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readChatMessagesChatsGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ChatMessage>>;
-    public readChatMessagesChatsGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ChatMessage>>>;
-    public readChatMessagesChatsGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ChatMessage>>>;
-    public readChatMessagesChatsGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (skip !== undefined && skip !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>skip, 'skip');
-        }
-        if (limit !== undefined && limit !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>limit, 'limit');
+    public readChatMessagesSinceIdChatsLastIdGet(lastId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<ChatMessage>>;
+    public readChatMessagesSinceIdChatsLastIdGet(lastId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<ChatMessage>>>;
+    public readChatMessagesSinceIdChatsLastIdGet(lastId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<ChatMessage>>>;
+    public readChatMessagesSinceIdChatsLastIdGet(lastId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (lastId === null || lastId === undefined) {
+            throw new Error('Required parameter lastId was null or undefined when calling readChatMessagesSinceIdChatsLastIdGet.');
         }
 
         let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
 
         let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (httpHeaderAcceptSelected === undefined) {
@@ -3800,9 +3799,8 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<ChatMessage>>(`${this.configuration.basePath}/chats/`,
+        return this.httpClient.get<Array<ChatMessage>>(`${this.configuration.basePath}/chats/${encodeURIComponent(String(lastId))}`,
             {
-                params: queryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
