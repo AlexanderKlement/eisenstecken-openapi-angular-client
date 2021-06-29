@@ -9,15 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserEssential } from './userEssential';
 
 
-export interface Lock { 
-    key: string;
+export interface ChatRecipient { 
+    email: string;
+    firstname: string;
+    secondname: string;
     id: number;
-    user: UserEssential;
-    timestamp: string;
-    max_lock_time_minutes?: number;
-    locked: boolean;
 }
 

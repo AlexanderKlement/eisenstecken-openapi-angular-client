@@ -21,6 +21,7 @@ import { Category } from '../model/models';
 import { CategoryCreate } from '../model/models';
 import { ChatMessage } from '../model/models';
 import { ChatMessageCreate } from '../model/models';
+import { ChatRecipient } from '../model/models';
 import { Client } from '../model/models';
 import { ClientCreate } from '../model/models';
 import { HTTPValidationError } from '../model/models';
@@ -30,6 +31,7 @@ import { Job } from '../model/models';
 import { JobCreate } from '../model/models';
 import { JobStatusType } from '../model/models';
 import { JobUpdate } from '../model/models';
+import { Lock } from '../model/models';
 import { Note } from '../model/models';
 import { NoteCreate } from '../model/models';
 import { Offer } from '../model/models';
@@ -331,6 +333,13 @@ export interface DefaultServiceInterface {
     grantRightsToUserUsersRightsUserIdPost(userId: number, requestBody: Array<string>, extraHttpRequestParams?: any): Observable<User>;
 
     /**
+     * Islocked Client
+     * 
+     * @param clientId 
+     */
+    islockedClientClientIslockedClientIdGet(clientId: number, extraHttpRequestParams?: any): Observable<Lock>;
+
+    /**
      * Lock Article
      * 
      * @param articleId 
@@ -364,13 +373,6 @@ export interface DefaultServiceInterface {
      * @param clientId 
      */
     lockClientClientLockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
-
-    /**
-     * Lock Client
-     * 
-     * @param clientId 
-     */
-    lockClientClientUnlockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Lock Ingoing Invoice
@@ -534,12 +536,32 @@ export interface DefaultServiceInterface {
     readChatMessagesSinceIdChatsLastIdGet(lastId: number, extraHttpRequestParams?: any): Observable<Array<ChatMessage>>;
 
     /**
+     * Read Chat Recipients
+     * 
+     */
+    readChatRecipientsChatsRecipientsGet(extraHttpRequestParams?: any): Observable<Array<ChatRecipient>>;
+
+    /**
+     * Read Client
+     * 
+     * @param clientId 
+     */
+    readClientClientClientIdGet(clientId: number, extraHttpRequestParams?: any): Observable<Client>;
+
+    /**
+     * Read Client Count
+     * 
+     */
+    readClientCountClientCountGet(extraHttpRequestParams?: any): Observable<number>;
+
+    /**
      * Read Clients
      * 
      * @param skip 
      * @param limit 
+     * @param filter 
      */
-    readClientsClientGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Client>>;
+    readClientsClientGet(skip?: number, limit?: number, filter?: string, extraHttpRequestParams?: any): Observable<Array<Client>>;
 
     /**
      * Read Ingoing Invoices
@@ -548,6 +570,39 @@ export interface DefaultServiceInterface {
      * @param limit 
      */
     readIngoingInvoicesIngoingInvoiceGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<IngoingInvoice>>;
+
+    /**
+     * Read Job Count
+     * 
+     */
+    readJobCountJobCountGet(extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Job
+     * 
+     * @param jobId 
+     */
+    readJobJobJobIdGet(jobId: number, extraHttpRequestParams?: any): Observable<Job>;
+
+    /**
+     * Read Jobs By Client
+     * 
+     * @param clientId 
+     * @param filter 
+     * @param skip 
+     * @param limit 
+     */
+    readJobsByClientJobClientClientIdCountGet(clientId: number, filter?: string, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Jobs By Client
+     * 
+     * @param clientId 
+     * @param filter 
+     * @param skip 
+     * @param limit 
+     */
+    readJobsByClientJobClientClientIdGet(clientId: number, filter?: string, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Job>>;
 
     /**
      * Read Jobs
@@ -645,6 +700,13 @@ export interface DefaultServiceInterface {
      * 
      */
     rootGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
+     * Unlock Client
+     * 
+     * @param clientId 
+     */
+    unlockClientClientUnlockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Update Article

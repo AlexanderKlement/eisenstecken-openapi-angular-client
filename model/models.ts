@@ -8,6 +8,7 @@ export * from './category';
 export * from './categoryCreate';
 export * from './chatMessage';
 export * from './chatMessageCreate';
+export * from './chatRecipient';
 export * from './client';
 export * from './clientCreate';
 export * from './country';

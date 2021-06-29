@@ -18,6 +18,7 @@ model/category.ts
 model/categoryCreate.ts
 model/chatMessage.ts
 model/chatMessageCreate.ts
+model/chatRecipient.ts
 model/client.ts
 model/clientCreate.ts
 model/country.ts

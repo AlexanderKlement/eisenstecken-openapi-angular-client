@@ -9,14 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { UserEssential } from './userEssential';
 
 
 export interface ChatMessage { 
     text: string;
     id: number;
     timestamp: string;
-    sender: User;
-    recipient?: User;
+    sender: UserEssential;
+    recipient?: UserEssential;
+    own: boolean;
 }
 

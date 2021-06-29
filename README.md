@@ -1,4 +1,4 @@
-## eisenstecken-openapi-angular-library@7.0.2
+## eisenstecken-openapi-angular-library@7.0.9
 
 ### Building
 
@@ -19,7 +19,7 @@ Navigate to the folder of your consuming project and run one of next commands.
 _published:_
 
 ```
-npm install eisenstecken-openapi-angular-library@7.0.2 --save
+npm install eisenstecken-openapi-angular-library@7.0.9 --save
 ```
 
 _without publishing (not recommended):_

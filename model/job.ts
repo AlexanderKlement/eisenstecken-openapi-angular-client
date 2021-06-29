@@ -35,5 +35,7 @@ export interface Job {
     status: JobStatusType;
     type: JobTypeType;
     path: string;
+    status_name?: string;
+    type_name?: string;
 }
 

@@ -14,11 +14,11 @@
 /**
  * An enumeration.
  */
-export type JobTypeType = 'MAIN' | 'SUB' | 'MINI';
+export type JobTypeType = 'JOBTYPE_MAIN' | 'JOBTYPE_SUB' | 'JOBYTPE_MINI';
 
 export const JobTypeType = {
-    Main: 'MAIN' as JobTypeType,
-    Sub: 'SUB' as JobTypeType,
-    Mini: 'MINI' as JobTypeType
+    JobtypeMain: 'JOBTYPE_MAIN' as JobTypeType,
+    JobtypeSub: 'JOBTYPE_SUB' as JobTypeType,
+    JobytpeMini: 'JOBYTPE_MINI' as JobTypeType
 };
 
