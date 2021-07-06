@@ -14,12 +14,12 @@
 /**
  * An enumeration.
  */
-export type ReminderLevel = '1' | '2' | '3' | '4';
+export type ReminderLevel = 'REMINDER_LEVEL.ZE' | 'REMINDER_LEVEL.LEVEL1' | 'REMINDER_LEVEL.LEVEL2' | 'REMINDER_LEVEL.LEVEL3';
 
 export const ReminderLevel = {
-    _1: '1' as ReminderLevel,
-    _2: '2' as ReminderLevel,
-    _3: '3' as ReminderLevel,
-    _4: '4' as ReminderLevel
+    Ze: 'REMINDER_LEVEL.ZE' as ReminderLevel,
+    Level1: 'REMINDER_LEVEL.LEVEL1' as ReminderLevel,
+    Level2: 'REMINDER_LEVEL.LEVEL2' as ReminderLevel,
+    Level3: 'REMINDER_LEVEL.LEVEL3' as ReminderLevel
 };
 

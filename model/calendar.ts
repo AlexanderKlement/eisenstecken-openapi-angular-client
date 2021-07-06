@@ -10,17 +10,13 @@
  * Do not edit the class manually.
  */
 import { User } from './user';
-import { Lock } from './lock';
 
 
 export interface Calendar { 
-    lock: Lock;
-    title: string;
-    description: string;
-    start_time: string;
-    end_time: string;
+    name: string;
+    _public: boolean;
+    key: string;
     id: number;
-    timestamp: string;
     user: User;
 }
 

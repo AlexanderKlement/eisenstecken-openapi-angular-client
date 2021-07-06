@@ -9,6 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Address } from './address';
+import { Language } from './language';
 import { Gender } from './gender';
 import { Lock } from './lock';
 
@@ -30,7 +32,9 @@ export interface Client {
     publica_amministrazione: boolean;
     cup: string;
     cig: string;
+    address: Address;
     id: number;
-    gender: Gender;
+    gender?: Gender;
+    language: Language;
 }
 

@@ -19,6 +19,5 @@ export interface JobCreate {
     client_id: number;
     address: AddressCreate;
     type: JobTypeType;
-    path: string;
 }
 

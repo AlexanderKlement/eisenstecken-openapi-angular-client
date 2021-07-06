@@ -9,16 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserEssential } from './userEssential';
+import { JobStatusType } from './jobStatusType';
+import { Text } from './text';
 
 
-export interface Lock { 
-    key: string;
+export interface JobStatus { 
+    status: JobStatusType;
     id: number;
-    user: UserEssential;
-    timestamp: string;
-    max_lock_time_minutes: number;
-    reminder_time_minutes: number;
-    locked: boolean;
+    text: Text;
 }
 

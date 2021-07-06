@@ -9,16 +9,20 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserEssential } from './userEssential';
+import { User } from './user';
+import { Calendar } from './calendar';
+import { Lock } from './lock';
 
 
-export interface Lock { 
-    key: string;
+export interface CalendarEntry { 
+    lock: Lock;
+    title: string;
+    description: string;
+    start_time: string;
+    end_time: string;
     id: number;
-    user: UserEssential;
     timestamp: string;
-    max_lock_time_minutes: number;
-    reminder_time_minutes: number;
-    locked: boolean;
+    user: User;
+    calendar: Calendar;
 }
 

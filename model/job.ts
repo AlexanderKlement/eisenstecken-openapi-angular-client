@@ -9,10 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { JobTypeType } from './jobTypeType';
+import { JobStatus } from './jobStatus';
 import { OutgoingInvoice } from './outgoingInvoice';
+import { JobType } from './jobType';
 import { Address } from './address';
-import { JobStatusType } from './jobStatusType';
 import { Offer } from './offer';
 import { Orderable } from './orderable';
 import { Client } from './client';
@@ -32,10 +32,8 @@ export interface Job {
     client: Client;
     address: Address;
     archive: boolean;
-    status: JobStatusType;
-    type: JobTypeType;
+    type: JobType;
     path: string;
-    status_name?: string;
-    type_name?: string;
+    status: JobStatus;
 }
 

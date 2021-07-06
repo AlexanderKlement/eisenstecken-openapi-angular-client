@@ -16,5 +16,6 @@ export interface Text {
     translation_it: string;
     key: string;
     id: number;
+    translation?: string;
 }
 

@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { AddressCreate } from './addressCreate';
 
 
 export interface ClientCreate { 
@@ -27,6 +28,8 @@ export interface ClientCreate {
     publica_amministrazione: boolean;
     cup: string;
     cig: string;
+    address: AddressCreate;
     gender_code: string;
+    language_code: string;
 }
 

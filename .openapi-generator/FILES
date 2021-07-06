@@ -13,7 +13,8 @@ model/addressCreate.ts
 model/article.ts
 model/articleCreate.ts
 model/calendar.ts
-model/calendarCreate.ts
+model/calendarEntry.ts
+model/calendarEntryCreate.ts
 model/category.ts
 model/categoryCreate.ts
 model/chatMessage.ts
@@ -28,7 +29,9 @@ model/ingoingInvoice.ts
 model/ingoingInvoiceCreate.ts
 model/job.ts
 model/jobCreate.ts
+model/jobStatus.ts
 model/jobStatusType.ts
+model/jobType.ts
 model/jobTypeType.ts
 model/jobUpdate.ts
 model/language.ts
@@ -66,6 +69,7 @@ model/unitCreate.ts
 model/user.ts
 model/userCreate.ts
 model/userEssential.ts
+model/userPassword.ts
 model/userUpdate.ts
 model/validationError.ts
 model/vat.ts

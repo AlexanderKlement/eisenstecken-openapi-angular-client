@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { User } from './user';
 
 
 export interface Payment { 
@@ -17,5 +18,6 @@ export interface Payment {
     date: string;
     id: number;
     timestamp: string;
+    user: User;
 }
 

@@ -15,8 +15,8 @@ import { Observable }                                        from 'rxjs';
 
 import { Article } from '../model/models';
 import { ArticleCreate } from '../model/models';
-import { Calendar } from '../model/models';
-import { CalendarCreate } from '../model/models';
+import { CalendarEntry } from '../model/models';
+import { CalendarEntryCreate } from '../model/models';
 import { Category } from '../model/models';
 import { CategoryCreate } from '../model/models';
 import { ChatMessage } from '../model/models';
@@ -24,13 +24,18 @@ import { ChatMessageCreate } from '../model/models';
 import { ChatRecipient } from '../model/models';
 import { Client } from '../model/models';
 import { ClientCreate } from '../model/models';
+import { Country } from '../model/models';
+import { Gender } from '../model/models';
 import { HTTPValidationError } from '../model/models';
 import { IngoingInvoice } from '../model/models';
 import { IngoingInvoiceCreate } from '../model/models';
 import { Job } from '../model/models';
 import { JobCreate } from '../model/models';
+import { JobStatus } from '../model/models';
 import { JobStatusType } from '../model/models';
+import { JobType } from '../model/models';
 import { JobUpdate } from '../model/models';
+import { Language } from '../model/models';
 import { Lock } from '../model/models';
 import { Note } from '../model/models';
 import { NoteCreate } from '../model/models';
@@ -54,6 +59,7 @@ import { Unit } from '../model/models';
 import { UnitCreate } from '../model/models';
 import { User } from '../model/models';
 import { UserCreate } from '../model/models';
+import { UserPassword } from '../model/models';
 import { UserUpdate } from '../model/models';
 import { Vat } from '../model/models';
 import { VatCreate } from '../model/models';
@@ -77,9 +83,10 @@ export interface DefaultServiceInterface {
     /**
      * Create Calendar Entry
      * 
-     * @param calendarCreate 
+     * @param calendarId 
+     * @param calendarEntryCreate 
      */
-    createCalendarEntryCalendarPost(calendarCreate: CalendarCreate, extraHttpRequestParams?: any): Observable<Calendar>;
+    createCalendarEntryCalendarCalendarIdPost(calendarId: number, calendarEntryCreate: CalendarEntryCreate, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Create Category
@@ -223,7 +230,7 @@ export interface DefaultServiceInterface {
      * 
      * @param calendarId 
      */
-    deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, extraHttpRequestParams?: any): Observable<Calendar>;
+    deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Delete Category
@@ -325,6 +332,18 @@ export interface DefaultServiceInterface {
     getRightsRightsGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Right>>;
 
     /**
+     * Get Status Options
+     * 
+     */
+    getStatusOptionsJobStatusOptionsGet(extraHttpRequestParams?: any): Observable<Array<JobStatus>>;
+
+    /**
+     * Get Type Options
+     * 
+     */
+    getTypeOptionsJobTypeOptionsGet(extraHttpRequestParams?: any): Observable<Array<JobType>>;
+
+    /**
      * Grant Rights To User
      * 
      * @param userId 
@@ -340,6 +359,13 @@ export interface DefaultServiceInterface {
     islockedClientClientIslockedClientIdGet(clientId: number, extraHttpRequestParams?: any): Observable<Lock>;
 
     /**
+     * Islocked Job
+     * 
+     * @param jobId 
+     */
+    islockedJobJobIslockedJobIdGet(jobId: number, extraHttpRequestParams?: any): Observable<Lock>;
+
+    /**
      * Lock Article
      * 
      * @param articleId 
@@ -352,20 +378,6 @@ export interface DefaultServiceInterface {
      * @param articleId 
      */
     lockArticleArticleUnlockArticleIdPost(articleId: number, extraHttpRequestParams?: any): Observable<boolean>;
-
-    /**
-     * Lock Calendar
-     * 
-     * @param calendarId 
-     */
-    lockCalendarCalendarLockCalendarIdPost(calendarId: number, extraHttpRequestParams?: any): Observable<boolean>;
-
-    /**
-     * Lock Calendar
-     * 
-     * @param calendarId 
-     */
-    lockCalendarCalendarUnlockCalendarIdPost(calendarId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Lock Client
@@ -394,13 +406,6 @@ export interface DefaultServiceInterface {
      * @param jobId 
      */
     lockJobJobLockJobIdPost(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
-
-    /**
-     * Lock Job
-     * 
-     * @param jobId 
-     */
-    lockJobJobUnlockJobIdPost(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Lock Offer
@@ -513,12 +518,30 @@ export interface DefaultServiceInterface {
     readArticlesArticleGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
 
     /**
+     * Read Calendar Entries By Key
+     * 
+     * @param calendarKey 
+     * @param fromDate 
+     * @param toDate 
+     */
+    readCalendarEntriesByKeyCalendarKeyCalendarKeyGet(calendarKey: string, fromDate: string, toDate: string, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
+
+    /**
      * Read Calendar Entries
      * 
-     * @param skip 
-     * @param limit 
+     * @param calendarId 
+     * @param fromDate 
+     * @param toDate 
      */
-    readCalendarEntriesCalendarGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Calendar>>;
+    readCalendarEntriesCalendarCalendarIdGet(calendarId: number, fromDate: string, toDate: string, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
+
+    /**
+     * Read Calendar Entries Me
+     * 
+     * @param fromDate 
+     * @param toDate 
+     */
+    readCalendarEntriesMeCalendarMeGet(fromDate: string, toDate: string, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
 
     /**
      * Read Categories
@@ -562,6 +585,22 @@ export interface DefaultServiceInterface {
      * @param filter 
      */
     readClientsClientGet(skip?: number, limit?: number, filter?: string, extraHttpRequestParams?: any): Observable<Array<Client>>;
+
+    /**
+     * Read Countries
+     * 
+     * @param skip 
+     * @param limit 
+     */
+    readCountriesAddressCountriesGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Country>>;
+
+    /**
+     * Read Genders
+     * 
+     * @param skip 
+     * @param limit 
+     */
+    readGendersGenderGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Gender>>;
 
     /**
      * Read Ingoing Invoices
@@ -611,6 +650,14 @@ export interface DefaultServiceInterface {
      * @param limit 
      */
     readJobsJobGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Job>>;
+
+    /**
+     * Read Languages
+     * 
+     * @param skip 
+     * @param limit 
+     */
+    readLanguagesLanguageGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Language>>;
 
     /**
      * Read Note Entries
@@ -696,6 +743,12 @@ export interface DefaultServiceInterface {
     readVatsVatGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Vat>>;
 
     /**
+     * Reset
+     * 
+     */
+    resetResetGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
      * Root
      * 
      */
@@ -709,12 +762,28 @@ export interface DefaultServiceInterface {
     unlockClientClientUnlockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Unlock Job
+     * 
+     * @param jobId 
+     */
+    unlockJobJobUnlockJobIdPost(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Update Article
      * 
      * @param articleId 
      * @param articleCreate 
      */
     updateArticleArticleArticleIdPut(articleId: number, articleCreate: ArticleCreate, extraHttpRequestParams?: any): Observable<Article>;
+
+    /**
+     * Update Calendar Entry
+     * 
+     * @param calendarId 
+     * @param calendarEntryId 
+     * @param calendarEntryCreate 
+     */
+    updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut(calendarId: number, calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Update Category
@@ -826,6 +895,14 @@ export interface DefaultServiceInterface {
      * @param userUpdate 
      */
     updateUserMeUsersMePut(userUpdate: UserUpdate, extraHttpRequestParams?: any): Observable<User>;
+
+    /**
+     * Update User Password
+     * 
+     * @param userId 
+     * @param userPassword 
+     */
+    updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Update User

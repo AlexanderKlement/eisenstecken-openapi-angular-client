@@ -15,5 +15,6 @@ export interface UserEssential {
     email: string;
     firstname: string;
     secondname: string;
+    id: number;
 }
 

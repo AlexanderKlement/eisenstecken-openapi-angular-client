@@ -19,8 +19,8 @@ import { Observable }                                        from 'rxjs';
 
 import { Article } from '../model/models';
 import { ArticleCreate } from '../model/models';
-import { Calendar } from '../model/models';
-import { CalendarCreate } from '../model/models';
+import { CalendarEntry } from '../model/models';
+import { CalendarEntryCreate } from '../model/models';
 import { Category } from '../model/models';
 import { CategoryCreate } from '../model/models';
 import { ChatMessage } from '../model/models';
@@ -28,13 +28,18 @@ import { ChatMessageCreate } from '../model/models';
 import { ChatRecipient } from '../model/models';
 import { Client } from '../model/models';
 import { ClientCreate } from '../model/models';
+import { Country } from '../model/models';
+import { Gender } from '../model/models';
 import { HTTPValidationError } from '../model/models';
 import { IngoingInvoice } from '../model/models';
 import { IngoingInvoiceCreate } from '../model/models';
 import { Job } from '../model/models';
 import { JobCreate } from '../model/models';
+import { JobStatus } from '../model/models';
 import { JobStatusType } from '../model/models';
+import { JobType } from '../model/models';
 import { JobUpdate } from '../model/models';
+import { Language } from '../model/models';
 import { Lock } from '../model/models';
 import { Note } from '../model/models';
 import { NoteCreate } from '../model/models';
@@ -58,6 +63,7 @@ import { Unit } from '../model/models';
 import { UnitCreate } from '../model/models';
 import { User } from '../model/models';
 import { UserCreate } from '../model/models';
+import { UserPassword } from '../model/models';
 import { UserUpdate } from '../model/models';
 import { Vat } from '../model/models';
 import { VatCreate } from '../model/models';
@@ -207,16 +213,20 @@ export class DefaultService implements DefaultServiceInterface {
 
     /**
      * Create Calendar Entry
-     * @param calendarCreate 
+     * @param calendarId 
+     * @param calendarEntryCreate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createCalendarEntryCalendarPost(calendarCreate: CalendarCreate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Calendar>;
-    public createCalendarEntryCalendarPost(calendarCreate: CalendarCreate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Calendar>>;
-    public createCalendarEntryCalendarPost(calendarCreate: CalendarCreate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Calendar>>;
-    public createCalendarEntryCalendarPost(calendarCreate: CalendarCreate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (calendarCreate === null || calendarCreate === undefined) {
-            throw new Error('Required parameter calendarCreate was null or undefined when calling createCalendarEntryCalendarPost.');
+    public createCalendarEntryCalendarCalendarIdPost(calendarId: number, calendarEntryCreate: CalendarEntryCreate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<CalendarEntry>;
+    public createCalendarEntryCalendarCalendarIdPost(calendarId: number, calendarEntryCreate: CalendarEntryCreate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<CalendarEntry>>;
+    public createCalendarEntryCalendarCalendarIdPost(calendarId: number, calendarEntryCreate: CalendarEntryCreate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<CalendarEntry>>;
+    public createCalendarEntryCalendarCalendarIdPost(calendarId: number, calendarEntryCreate: CalendarEntryCreate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (calendarId === null || calendarId === undefined) {
+            throw new Error('Required parameter calendarId was null or undefined when calling createCalendarEntryCalendarCalendarIdPost.');
+        }
+        if (calendarEntryCreate === null || calendarEntryCreate === undefined) {
+            throw new Error('Required parameter calendarEntryCreate was null or undefined when calling createCalendarEntryCalendarCalendarIdPost.');
         }
 
         let headers = this.defaultHeaders;
@@ -255,8 +265,8 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.post<Calendar>(`${this.configuration.basePath}/calendar/`,
-            calendarCreate,
+        return this.httpClient.post<CalendarEntry>(`${this.configuration.basePath}/calendar/${encodeURIComponent(String(calendarId))}`,
+            calendarEntryCreate,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -1432,9 +1442,9 @@ export class DefaultService implements DefaultServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Calendar>;
-    public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Calendar>>;
-    public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Calendar>>;
+    public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<CalendarEntry>;
+    public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<CalendarEntry>>;
+    public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<CalendarEntry>>;
     public deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (calendarId === null || calendarId === undefined) {
             throw new Error('Required parameter calendarId was null or undefined when calling deleteCalendarEntryCalendarCalendarIdPut.');
@@ -1467,7 +1477,7 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.put<Calendar>(`${this.configuration.basePath}/calendar/${encodeURIComponent(String(calendarId))}`,
+        return this.httpClient.put<CalendarEntry>(`${this.configuration.basePath}/calendar/${encodeURIComponent(String(calendarId))}`,
             null,
             {
                 responseType: <any>responseType_,
@@ -2217,6 +2227,88 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Get Status Options
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getStatusOptionsJobStatusOptionsGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<JobStatus>>;
+    public getStatusOptionsJobStatusOptionsGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<JobStatus>>>;
+    public getStatusOptionsJobStatusOptionsGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<JobStatus>>>;
+    public getStatusOptionsJobStatusOptionsGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<JobStatus>>(`${this.configuration.basePath}/job/status_options/`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get Type Options
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getTypeOptionsJobTypeOptionsGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<JobType>>;
+    public getTypeOptionsJobTypeOptionsGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<JobType>>>;
+    public getTypeOptionsJobTypeOptionsGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<JobType>>>;
+    public getTypeOptionsJobTypeOptionsGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<JobType>>(`${this.configuration.basePath}/job/type_options/`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Grant Rights To User
      * @param userId 
      * @param requestBody 
@@ -2335,6 +2427,58 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Islocked Job
+     * @param jobId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public islockedJobJobIslockedJobIdGet(jobId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Lock>;
+    public islockedJobJobIslockedJobIdGet(jobId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Lock>>;
+    public islockedJobJobIslockedJobIdGet(jobId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Lock>>;
+    public islockedJobJobIslockedJobIdGet(jobId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (jobId === null || jobId === undefined) {
+            throw new Error('Required parameter jobId was null or undefined when calling islockedJobJobIslockedJobIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Lock>(`${this.configuration.basePath}/job/islocked/${encodeURIComponent(String(jobId))}`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Lock Article
      * @param articleId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -2429,112 +2573,6 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.post<boolean>(`${this.configuration.basePath}/article/unlock/${encodeURIComponent(String(articleId))}`,
-            null,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Lock Calendar
-     * @param calendarId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public lockCalendarCalendarLockCalendarIdPost(calendarId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
-    public lockCalendarCalendarLockCalendarIdPost(calendarId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
-    public lockCalendarCalendarLockCalendarIdPost(calendarId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
-    public lockCalendarCalendarLockCalendarIdPost(calendarId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (calendarId === null || calendarId === undefined) {
-            throw new Error('Required parameter calendarId was null or undefined when calling lockCalendarCalendarLockCalendarIdPost.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.post<boolean>(`${this.configuration.basePath}/calendar/lock/${encodeURIComponent(String(calendarId))}`,
-            null,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Lock Calendar
-     * @param calendarId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public lockCalendarCalendarUnlockCalendarIdPost(calendarId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
-    public lockCalendarCalendarUnlockCalendarIdPost(calendarId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
-    public lockCalendarCalendarUnlockCalendarIdPost(calendarId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
-    public lockCalendarCalendarUnlockCalendarIdPost(calendarId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (calendarId === null || calendarId === undefined) {
-            throw new Error('Required parameter calendarId was null or undefined when calling lockCalendarCalendarUnlockCalendarIdPost.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.post<boolean>(`${this.configuration.basePath}/calendar/unlock/${encodeURIComponent(String(calendarId))}`,
             null,
             {
                 responseType: <any>responseType_,
@@ -2747,59 +2785,6 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.post<boolean>(`${this.configuration.basePath}/job/lock/${encodeURIComponent(String(jobId))}`,
-            null,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Lock Job
-     * @param jobId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public lockJobJobUnlockJobIdPost(jobId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
-    public lockJobJobUnlockJobIdPost(jobId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
-    public lockJobJobUnlockJobIdPost(jobId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
-    public lockJobJobUnlockJobIdPost(jobId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (jobId === null || jobId === undefined) {
-            throw new Error('Required parameter jobId was null or undefined when calling lockJobJobUnlockJobIdPost.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.post<boolean>(`${this.configuration.basePath}/job/unlock/${encodeURIComponent(String(jobId))}`,
             null,
             {
                 responseType: <any>responseType_,
@@ -3645,25 +3630,35 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Read Calendar Entries
-     * @param skip 
-     * @param limit 
+     * Read Calendar Entries By Key
+     * @param calendarKey 
+     * @param fromDate 
+     * @param toDate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readCalendarEntriesCalendarGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Calendar>>;
-    public readCalendarEntriesCalendarGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Calendar>>>;
-    public readCalendarEntriesCalendarGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Calendar>>>;
-    public readCalendarEntriesCalendarGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readCalendarEntriesByKeyCalendarKeyCalendarKeyGet(calendarKey: string, fromDate: string, toDate: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<CalendarEntry>>;
+    public readCalendarEntriesByKeyCalendarKeyCalendarKeyGet(calendarKey: string, fromDate: string, toDate: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<CalendarEntry>>>;
+    public readCalendarEntriesByKeyCalendarKeyCalendarKeyGet(calendarKey: string, fromDate: string, toDate: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<CalendarEntry>>>;
+    public readCalendarEntriesByKeyCalendarKeyCalendarKeyGet(calendarKey: string, fromDate: string, toDate: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (calendarKey === null || calendarKey === undefined) {
+            throw new Error('Required parameter calendarKey was null or undefined when calling readCalendarEntriesByKeyCalendarKeyCalendarKeyGet.');
+        }
+        if (fromDate === null || fromDate === undefined) {
+            throw new Error('Required parameter fromDate was null or undefined when calling readCalendarEntriesByKeyCalendarKeyCalendarKeyGet.');
+        }
+        if (toDate === null || toDate === undefined) {
+            throw new Error('Required parameter toDate was null or undefined when calling readCalendarEntriesByKeyCalendarKeyCalendarKeyGet.');
+        }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (skip !== undefined && skip !== null) {
+        if (fromDate !== undefined && fromDate !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>skip, 'skip');
+            <any>fromDate, 'from_date');
         }
-        if (limit !== undefined && limit !== null) {
+        if (toDate !== undefined && toDate !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>limit, 'limit');
+            <any>toDate, 'to_date');
         }
 
         let headers = this.defaultHeaders;
@@ -3693,7 +3688,145 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<Calendar>>(`${this.configuration.basePath}/calendar/`,
+        return this.httpClient.get<Array<CalendarEntry>>(`${this.configuration.basePath}/calendar/key/${encodeURIComponent(String(calendarKey))}`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Calendar Entries
+     * @param calendarId 
+     * @param fromDate 
+     * @param toDate 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readCalendarEntriesCalendarCalendarIdGet(calendarId: number, fromDate: string, toDate: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<CalendarEntry>>;
+    public readCalendarEntriesCalendarCalendarIdGet(calendarId: number, fromDate: string, toDate: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<CalendarEntry>>>;
+    public readCalendarEntriesCalendarCalendarIdGet(calendarId: number, fromDate: string, toDate: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<CalendarEntry>>>;
+    public readCalendarEntriesCalendarCalendarIdGet(calendarId: number, fromDate: string, toDate: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (calendarId === null || calendarId === undefined) {
+            throw new Error('Required parameter calendarId was null or undefined when calling readCalendarEntriesCalendarCalendarIdGet.');
+        }
+        if (fromDate === null || fromDate === undefined) {
+            throw new Error('Required parameter fromDate was null or undefined when calling readCalendarEntriesCalendarCalendarIdGet.');
+        }
+        if (toDate === null || toDate === undefined) {
+            throw new Error('Required parameter toDate was null or undefined when calling readCalendarEntriesCalendarCalendarIdGet.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (fromDate !== undefined && fromDate !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>fromDate, 'from_date');
+        }
+        if (toDate !== undefined && toDate !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>toDate, 'to_date');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<CalendarEntry>>(`${this.configuration.basePath}/calendar/${encodeURIComponent(String(calendarId))}`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Calendar Entries Me
+     * @param fromDate 
+     * @param toDate 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readCalendarEntriesMeCalendarMeGet(fromDate: string, toDate: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<CalendarEntry>>;
+    public readCalendarEntriesMeCalendarMeGet(fromDate: string, toDate: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<CalendarEntry>>>;
+    public readCalendarEntriesMeCalendarMeGet(fromDate: string, toDate: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<CalendarEntry>>>;
+    public readCalendarEntriesMeCalendarMeGet(fromDate: string, toDate: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (fromDate === null || fromDate === undefined) {
+            throw new Error('Required parameter fromDate was null or undefined when calling readCalendarEntriesMeCalendarMeGet.');
+        }
+        if (toDate === null || toDate === undefined) {
+            throw new Error('Required parameter toDate was null or undefined when calling readCalendarEntriesMeCalendarMeGet.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (fromDate !== undefined && fromDate !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>fromDate, 'from_date');
+        }
+        if (toDate !== undefined && toDate !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>toDate, 'to_date');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<CalendarEntry>>(`${this.configuration.basePath}/calendar/me`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -4014,6 +4147,114 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<Array<Client>>(`${this.configuration.basePath}/client/`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Countries
+     * @param skip 
+     * @param limit 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readCountriesAddressCountriesGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Country>>;
+    public readCountriesAddressCountriesGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Country>>>;
+    public readCountriesAddressCountriesGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Country>>>;
+    public readCountriesAddressCountriesGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Country>>(`${this.configuration.basePath}/address/countries`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Genders
+     * @param skip 
+     * @param limit 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readGendersGenderGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Gender>>;
+    public readGendersGenderGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Gender>>>;
+    public readGendersGenderGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Gender>>>;
+    public readGendersGenderGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Gender>>(`${this.configuration.basePath}/gender/`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -4376,6 +4617,60 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<Array<Job>>(`${this.configuration.basePath}/job/`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Languages
+     * @param skip 
+     * @param limit 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readLanguagesLanguageGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Language>>;
+    public readLanguagesLanguageGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Language>>>;
+    public readLanguagesLanguageGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Language>>>;
+    public readLanguagesLanguageGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Language>>(`${this.configuration.basePath}/language/`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -5003,6 +5298,47 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Reset
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public resetResetGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public resetResetGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public resetResetGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public resetResetGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/reset`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Root
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -5097,6 +5433,59 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Unlock Job
+     * @param jobId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public unlockJobJobUnlockJobIdPost(jobId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
+    public unlockJobJobUnlockJobIdPost(jobId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
+    public unlockJobJobUnlockJobIdPost(jobId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
+    public unlockJobJobUnlockJobIdPost(jobId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (jobId === null || jobId === undefined) {
+            throw new Error('Required parameter jobId was null or undefined when calling unlockJobJobUnlockJobIdPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<boolean>(`${this.configuration.basePath}/job/unlock/${encodeURIComponent(String(jobId))}`,
+            null,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Update Article
      * @param articleId 
      * @param articleCreate 
@@ -5152,6 +5541,76 @@ export class DefaultService implements DefaultServiceInterface {
 
         return this.httpClient.put<Article>(`${this.configuration.basePath}/article/${encodeURIComponent(String(articleId))}`,
             articleCreate,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update Calendar Entry
+     * @param calendarId 
+     * @param calendarEntryId 
+     * @param calendarEntryCreate 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut(calendarId: number, calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<CalendarEntry>;
+    public updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut(calendarId: number, calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<CalendarEntry>>;
+    public updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut(calendarId: number, calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<CalendarEntry>>;
+    public updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut(calendarId: number, calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (calendarId === null || calendarId === undefined) {
+            throw new Error('Required parameter calendarId was null or undefined when calling updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut.');
+        }
+        if (calendarEntryId === null || calendarEntryId === undefined) {
+            throw new Error('Required parameter calendarEntryId was null or undefined when calling updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut.');
+        }
+        if (calendarEntryCreate === null || calendarEntryCreate === undefined) {
+            throw new Error('Required parameter calendarEntryCreate was null or undefined when calling updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.put<CalendarEntry>(`${this.configuration.basePath}/calendar/${encodeURIComponent(String(calendarId))}/${encodeURIComponent(String(calendarEntryId))}`,
+            calendarEntryCreate,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -6068,6 +6527,72 @@ export class DefaultService implements DefaultServiceInterface {
 
         return this.httpClient.put<User>(`${this.configuration.basePath}/users/me`,
             userUpdate,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update User Password
+     * @param userId 
+     * @param userPassword 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
+    public updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
+    public updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
+    public updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling updateUserPasswordUsersPasswordUserIdPut.');
+        }
+        if (userPassword === null || userPassword === undefined) {
+            throw new Error('Required parameter userPassword was null or undefined when calling updateUserPasswordUsersPasswordUserIdPut.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.put<boolean>(`${this.configuration.basePath}/users/password/${encodeURIComponent(String(userId))}`,
+            userPassword,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
