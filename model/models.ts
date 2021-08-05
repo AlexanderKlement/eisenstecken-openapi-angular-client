@@ -13,6 +13,8 @@ export * from './chatRecipient';
 export * from './client';
 export * from './clientCreate';
 export * from './country';
+export * from './descriptiveArticle';
+export * from './descriptiveArticleCreate';
 export * from './gender';
 export * from './hTTPValidationError';
 export * from './ingoingInvoice';

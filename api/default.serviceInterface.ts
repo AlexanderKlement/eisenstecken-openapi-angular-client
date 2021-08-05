@@ -74,6 +74,13 @@ export interface DefaultServiceInterface {
     configuration: Configuration;
 
     /**
+     * Count Offers By Job
+     * 
+     * @param jobId 
+     */
+    countOffersByJobOfferJobCountJobIdGet(jobId: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
      * Create Article
      * 
      * @param articleCreate 
@@ -366,6 +373,13 @@ export interface DefaultServiceInterface {
     islockedJobJobIslockedJobIdGet(jobId: number, extraHttpRequestParams?: any): Observable<Lock>;
 
     /**
+     * Islocked Offer
+     * 
+     * @param offerId 
+     */
+    islockedOfferOfferIslockedOfferIdGet(offerId: number, extraHttpRequestParams?: any): Observable<Lock>;
+
+    /**
      * Lock Article
      * 
      * @param articleId 
@@ -518,6 +532,21 @@ export interface DefaultServiceInterface {
     readArticlesArticleGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
 
     /**
+     * Read Calendar Entries By Day
+     * 
+     * @param calendarId 
+     * @param day 
+     */
+    readCalendarEntriesByDayCalendarPublicCalendarIdGet(calendarId: number, day: number, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
+
+    /**
+     * Read Calendar Entries By Day Me
+     * 
+     * @param day 
+     */
+    readCalendarEntriesByDayMeCalendarMeGet(day: number, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
+
+    /**
      * Read Calendar Entries By Key
      * 
      * @param calendarKey 
@@ -527,21 +556,11 @@ export interface DefaultServiceInterface {
     readCalendarEntriesByKeyCalendarKeyCalendarKeyGet(calendarKey: string, fromDate: string, toDate: string, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
 
     /**
-     * Read Calendar Entries
+     * Read Calendar Entry
      * 
-     * @param calendarId 
-     * @param fromDate 
-     * @param toDate 
+     * @param calendarEntryId 
      */
-    readCalendarEntriesCalendarCalendarIdGet(calendarId: number, fromDate: string, toDate: string, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
-
-    /**
-     * Read Calendar Entries Me
-     * 
-     * @param fromDate 
-     * @param toDate 
-     */
-    readCalendarEntriesMeCalendarMeGet(fromDate: string, toDate: string, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
+    readCalendarEntryCalendarCalendarEntryIdGet(calendarEntryId: number, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Read Categories
@@ -664,6 +683,25 @@ export interface DefaultServiceInterface {
      * 
      */
     readNoteEntriesNoteGet(extraHttpRequestParams?: any): Observable<Array<Note>>;
+
+    /**
+     * Read Offer
+     * 
+     * @param offerId 
+     * @param skip 
+     * @param limit 
+     */
+    readOfferOfferOfferIdGet(offerId: number, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Offer>;
+
+    /**
+     * Read Offers By Job
+     * 
+     * @param jobId 
+     * @param filterString 
+     * @param skip 
+     * @param limit 
+     */
+    readOffersByJobOfferJobJobIdGet(jobId: number, filterString?: string, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Offer>>;
 
     /**
      * Read Offers

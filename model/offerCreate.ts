@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OrderedArticleCreate } from './orderedArticleCreate';
+import { DescriptiveArticleCreate } from './descriptiveArticleCreate';
 
 
 export interface OfferCreate { 
@@ -19,6 +19,6 @@ export interface OfferCreate {
     payment: string;
     delivery: string;
     job_id: number;
-    ordered_articles: Array<OrderedArticleCreate>;
+    descriptive_articles: Array<DescriptiveArticleCreate>;
 }
 

@@ -9,20 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DescriptiveArticle } from './descriptiveArticle';
-import { Lock } from './lock';
 
 
-export interface Offer { 
-    lock: Lock;
-    date: string;
-    in_price_included: string;
-    in_price_excluded: string;
-    payment: string;
-    delivery: string;
+export interface DescriptiveArticle { 
+    name: string;
+    amount: number;
+    description: string;
+    single_price: number;
+    discount: number;
+    alternative: boolean;
     id: number;
-    timestamp: string;
-    descriptive_articles: Array<DescriptiveArticle>;
-    pdf?: string;
+    header_article?: DescriptiveArticle;
 }
 

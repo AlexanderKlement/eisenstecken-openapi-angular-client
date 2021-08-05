@@ -9,15 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DescriptiveArticleCreate } from './descriptiveArticleCreate';
 
 
-export interface OfferUpdate { 
-    date: string;
-    in_price_included: string;
-    in_price_excluded: string;
-    payment: string;
-    delivery: string;
-    descriptive_articles: Array<DescriptiveArticleCreate>;
+export interface DescriptiveArticleCreate { 
+    name: string;
+    amount: number;
+    description: string;
+    single_price: number;
+    discount: number;
+    alternative: boolean;
+    header_article?: number;
 }
 

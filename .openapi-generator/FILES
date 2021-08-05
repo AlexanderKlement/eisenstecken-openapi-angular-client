@@ -23,6 +23,8 @@ model/chatRecipient.ts
 model/client.ts
 model/clientCreate.ts
 model/country.ts
+model/descriptiveArticle.ts
+model/descriptiveArticleCreate.ts
 model/gender.ts
 model/hTTPValidationError.ts
 model/ingoingInvoice.ts
