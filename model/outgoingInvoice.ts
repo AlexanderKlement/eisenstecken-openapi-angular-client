@@ -25,7 +25,7 @@ export interface OutgoingInvoice {
     delivery: string;
     id: number;
     timestamp: string;
-    pdf: string;
+    pdf?: string;
     payment?: Payment;
     articles: Array<OrderedArticle>;
     reminders: Array<Reminder>;

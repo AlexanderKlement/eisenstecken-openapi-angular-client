@@ -9,14 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserEssential } from './userEssential';
 
 
-export interface Calendar { 
+export interface SubJobCreate { 
+    description: string;
     name: string;
-    open: boolean;
-    key: string;
-    id: number;
-    user: UserEssential;
 }
 

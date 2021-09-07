@@ -13,8 +13,10 @@
 
 export interface ChatRecipient { 
     email: string;
+    tel: string;
     firstname: string;
     secondname: string;
     id: number;
+    fullname?: string;
 }
 

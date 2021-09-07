@@ -27,5 +27,6 @@ export interface Supplier {
     address: Address;
     language: Language;
     articles?: Array<Article>;
+    displayable_name?: string;
 }
 

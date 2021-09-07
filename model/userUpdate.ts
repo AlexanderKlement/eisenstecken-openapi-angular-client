@@ -13,6 +13,7 @@
 
 export interface UserUpdate { 
     email: string;
+    tel: string;
     firstname: string;
     secondname: string;
 }

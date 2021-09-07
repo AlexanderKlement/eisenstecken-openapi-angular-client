@@ -13,6 +13,7 @@
 
 export interface UserCreate { 
     email: string;
+    tel: string;
     firstname: string;
     secondname: string;
     password: string;

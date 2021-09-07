@@ -15,6 +15,9 @@ import { Observable }                                        from 'rxjs';
 
 import { Article } from '../model/models';
 import { ArticleCreate } from '../model/models';
+import { ArticleUpdate } from '../model/models';
+import { ArticleUpdateFull } from '../model/models';
+import { Calendar } from '../model/models';
 import { CalendarEntry } from '../model/models';
 import { CalendarEntryCreate } from '../model/models';
 import { Category } from '../model/models';
@@ -45,13 +48,18 @@ import { OfferUpdate } from '../model/models';
 import { Order } from '../model/models';
 import { OrderCreate } from '../model/models';
 import { OrderUpdate } from '../model/models';
+import { OrderedArticle } from '../model/models';
+import { OrderedArticleCreate } from '../model/models';
 import { OutgoingInvoice } from '../model/models';
 import { OutgoingInvoiceCreate } from '../model/models';
+import { Parameter } from '../model/models';
+import { ParameterCreate } from '../model/models';
 import { PaymentCreate } from '../model/models';
 import { ReminderCreate } from '../model/models';
 import { Right } from '../model/models';
 import { Stock } from '../model/models';
 import { StockCreate } from '../model/models';
+import { SubJobCreate } from '../model/models';
 import { Supplier } from '../model/models';
 import { SupplierCreate } from '../model/models';
 import { Token } from '../model/models';
@@ -72,6 +80,30 @@ import { Configuration }                                     from '../configurat
 export interface DefaultServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
+
+    /**
+     * Add Ordered Article To Order
+     * 
+     * @param orderId 
+     * @param orderedArticleCreate 
+     */
+    addOrderedArticleToOrderOrderOrderedArticleOrderIdPut(orderId: number, orderedArticleCreate: OrderedArticleCreate, extraHttpRequestParams?: any): Observable<Order>;
+
+    /**
+     * Add Subjob To Job
+     * 
+     * @param jobId 
+     * @param subJobCreate 
+     */
+    addSubjobToJobJobSubJobJobIdPost(jobId: number, subJobCreate: SubJobCreate, extraHttpRequestParams?: any): Observable<Job>;
+
+    /**
+     * Copy Article And Modify
+     * 
+     * @param articleId 
+     * @param articleUpdate 
+     */
+    copyArticleAndModifyArticleArticleIdPost(articleId: number, articleUpdate: ArticleUpdate, extraHttpRequestParams?: any): Observable<Article>;
 
     /**
      * Count Offers By Job
@@ -226,6 +258,12 @@ export interface DefaultServiceInterface {
     createVatVatPost(vatCreate: VatCreate, extraHttpRequestParams?: any): Observable<Vat>;
 
     /**
+     * Customize Logger
+     * 
+     */
+    customizeLoggerCustomLoggerGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
      * Delete Article
      * 
      * @param articleId 
@@ -237,7 +275,7 @@ export interface DefaultServiceInterface {
      * 
      * @param calendarId 
      */
-    deleteCalendarEntryCalendarCalendarIdPut(calendarId: number, extraHttpRequestParams?: any): Observable<CalendarEntry>;
+    deleteCalendarEntryCalendarCalendarIdDelete(calendarId: number, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Delete Category
@@ -289,6 +327,13 @@ export interface DefaultServiceInterface {
     deleteOrderOrderOrderIdDelete(orderId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Delete Orderer Article
+     * 
+     * @param orderedArticleId 
+     */
+    deleteOrdererArticleOrderorderedArticleOrderedArticleIdDelete(orderedArticleId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Delete Outgoing Invoice
      * 
      * @param outgoingInvoiceId 
@@ -329,6 +374,27 @@ export interface DefaultServiceInterface {
      * @param vatId 
      */
     deleteVatVatVatIdDelete(vatId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Get Bulk Parameter By Key
+     * 
+     * @param requestBody 
+     */
+    getBulkParameterByKeyParameterBulkGetPost(requestBody: Array<string>, extraHttpRequestParams?: any): Observable<Array<Parameter>>;
+
+    /**
+     * Get Jobs By Status
+     * 
+     * @param jobStatus 
+     */
+    getJobsByStatusJobStatusJobStatusGet(jobStatus: JobStatusType, extraHttpRequestParams?: any): Observable<Array<Job>>;
+
+    /**
+     * Get Parameter
+     * 
+     * @param key 
+     */
+    getParameterParameterKeyGet(key: string, extraHttpRequestParams?: any): Observable<string>;
 
     /**
      * Get Rights
@@ -378,6 +444,13 @@ export interface DefaultServiceInterface {
      * @param offerId 
      */
     islockedOfferOfferIslockedOfferIdGet(offerId: number, extraHttpRequestParams?: any): Observable<Lock>;
+
+    /**
+     * Islocked User
+     * 
+     * @param userId 
+     */
+    islockedUserUsersIslockedUserIdGet(userId: number, extraHttpRequestParams?: any): Observable<Lock>;
 
     /**
      * Lock Article
@@ -506,6 +579,13 @@ export interface DefaultServiceInterface {
     lockUnitUnitUnlockUnitIdPost(unitId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Lock User
+     * 
+     * @param userId 
+     */
+    lockUserUsersLockUserIdGet(userId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Logged In
      * 
      */
@@ -524,6 +604,20 @@ export interface DefaultServiceInterface {
     loginForAccessTokenTokenPost(username: string, password: string, grantType?: string, scope?: string, clientId?: string, clientSecret?: string, extraHttpRequestParams?: any): Observable<Token>;
 
     /**
+     * Patch Article
+     * 
+     * @param articleId 
+     * @param articleUpdate 
+     */
+    patchArticleArticleArticleIdPatch(articleId: number, articleUpdate: ArticleUpdate, extraHttpRequestParams?: any): Observable<Article>;
+
+    /**
+     * Pdf Gen Test
+     * 
+     */
+    pdfGenTestPdfGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
      * Read Articles
      * 
      * @param skip 
@@ -532,12 +626,26 @@ export interface DefaultServiceInterface {
     readArticlesArticleGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
 
     /**
+     * Read Articles By Stock
+     * 
+     * @param stockId 
+     */
+    readArticlesByStockArticleStockStockIdGet(stockId: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
+
+    /**
+     * Read Articles By Supplier
+     * 
+     * @param supplierId 
+     */
+    readArticlesBySupplierArticleSupplierSupplierIdGet(supplierId: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
+
+    /**
      * Read Calendar Entries By Day
      * 
      * @param calendarId 
      * @param day 
      */
-    readCalendarEntriesByDayCalendarPublicCalendarIdGet(calendarId: number, day: number, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
+    readCalendarEntriesByDayCalendarCalendarsCalendarIdGet(calendarId: number, day: number, extraHttpRequestParams?: any): Observable<Array<CalendarEntry>>;
 
     /**
      * Read Calendar Entries By Day Me
@@ -561,6 +669,12 @@ export interface DefaultServiceInterface {
      * @param calendarEntryId 
      */
     readCalendarEntryCalendarCalendarEntryIdGet(calendarEntryId: number, extraHttpRequestParams?: any): Observable<CalendarEntry>;
+
+    /**
+     * Read Calendars
+     * 
+     */
+    readCalendarsCalendarGet(extraHttpRequestParams?: any): Observable<Array<Calendar>>;
 
     /**
      * Read Categories
@@ -712,6 +826,14 @@ export interface DefaultServiceInterface {
     readOffersOfferGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Offer>>;
 
     /**
+     * Read Order From To
+     * 
+     * @param orderableFromId 
+     * @param orderableToId 
+     */
+    readOrderFromToOrderFromOrderableFromIdToOrderableToIdGet(orderableFromId: number, orderableToId: number, extraHttpRequestParams?: any): Observable<Order>;
+
+    /**
      * Read Orders
      * 
      * @param skip 
@@ -726,6 +848,23 @@ export interface DefaultServiceInterface {
      * @param limit 
      */
     readOutgoingInvoicesOutgoingInvoiceGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<OutgoingInvoice>>;
+
+    /**
+     * Read Outgoing Invoices
+     * 
+     * @param id 
+     * @param skip 
+     * @param limit 
+     */
+    readOutgoingInvoicesOutgoingInvoiceIdGet(id: number, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Read Parameters
+     * 
+     * @param skip 
+     * @param limit 
+     */
+    readParametersParameterGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Parameter>>;
 
     /**
      * Read Stocks
@@ -768,9 +907,17 @@ export interface DefaultServiceInterface {
      * Read Users
      * 
      * @param skip 
+     * @param filterString 
      * @param limit 
      */
-    readUsersUsersGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<User>>;
+    readUsersUsersGet(skip?: number, filterString?: string, limit?: number, extraHttpRequestParams?: any): Observable<Array<User>>;
+
+    /**
+     * Read Vat By Amount
+     * 
+     * @param vatAmount 
+     */
+    readVatByAmountVatVatAmountGet(vatAmount: number, extraHttpRequestParams?: any): Observable<Vat>;
 
     /**
      * Read Vats
@@ -793,6 +940,20 @@ export interface DefaultServiceInterface {
     rootGet(extraHttpRequestParams?: any): Observable<any>;
 
     /**
+     * Set Bulk Parameter By Key
+     * 
+     * @param parameterCreate 
+     */
+    setBulkParameterByKeyParameterBulkSetPost(parameterCreate: Array<ParameterCreate>, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Set Parameter
+     * 
+     * @param parameterCreate 
+     */
+    setParameterParameterPost(parameterCreate: ParameterCreate, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Unlock Client
      * 
      * @param clientId 
@@ -807,21 +968,27 @@ export interface DefaultServiceInterface {
     unlockJobJobUnlockJobIdPost(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Unlock User
+     * 
+     * @param userId 
+     */
+    unlockUserUsersUnlockUserIdGet(userId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Update Article
      * 
      * @param articleId 
-     * @param articleCreate 
+     * @param articleUpdateFull 
      */
-    updateArticleArticleArticleIdPut(articleId: number, articleCreate: ArticleCreate, extraHttpRequestParams?: any): Observable<Article>;
+    updateArticleArticleArticleIdPut(articleId: number, articleUpdateFull: ArticleUpdateFull, extraHttpRequestParams?: any): Observable<Article>;
 
     /**
      * Update Calendar Entry
      * 
-     * @param calendarId 
      * @param calendarEntryId 
      * @param calendarEntryCreate 
      */
-    updateCalendarEntryCalendarCalendarIdCalendarEntryIdPut(calendarId: number, calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, extraHttpRequestParams?: any): Observable<CalendarEntry>;
+    updateCalendarEntryCalendarCalendarEntryIdPut(calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Update Category
@@ -896,6 +1063,14 @@ export interface DefaultServiceInterface {
     updateOrderOrderOrderIdPut(orderId: number, orderUpdate: OrderUpdate, extraHttpRequestParams?: any): Observable<Order>;
 
     /**
+     * Update Ordered Article
+     * 
+     * @param orderedArticleId 
+     * @param orderedArticleCreate 
+     */
+    updateOrderedArticleOrderArticleOrderedArticleIdPut(orderedArticleId: number, orderedArticleCreate: OrderedArticleCreate, extraHttpRequestParams?: any): Observable<OrderedArticle>;
+
+    /**
      * Update Outgoing Invoice
      * 
      * @param outgoingInvoiceId 
@@ -940,7 +1115,7 @@ export interface DefaultServiceInterface {
      * @param userId 
      * @param userPassword 
      */
-    updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, extraHttpRequestParams?: any): Observable<boolean>;
+    updateUserPasswordUsersPasswordUserIdPut(userId: number, userPassword: UserPassword, extraHttpRequestParams?: any): Observable<User>;
 
     /**
      * Update User

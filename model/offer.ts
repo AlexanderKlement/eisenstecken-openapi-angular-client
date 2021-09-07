@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { DescriptiveArticle } from './descriptiveArticle';
+import { Vat } from './vat';
 import { Lock } from './lock';
 
 
@@ -17,12 +18,21 @@ export interface Offer {
     lock: Lock;
     date: string;
     in_price_included: string;
-    in_price_excluded: string;
+    validity: string;
     payment: string;
     delivery: string;
+    discount_amount: number;
+    material_description: string;
     id: number;
     timestamp: string;
-    descriptive_articles: Array<DescriptiveArticle>;
+    descriptive_articles?: Array<DescriptiveArticle>;
     pdf?: string;
+    vat: Vat;
+    full_price_without_vat?: number;
+    full_price_with_vat?: number;
+    full_vat_amount?: number;
+    date_string?: string;
+    generated_number?: string;
+    job_id: number;
 }
 

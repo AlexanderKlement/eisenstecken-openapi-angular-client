@@ -9,14 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserEssential } from './userEssential';
 
 
-export interface Calendar { 
-    name: string;
-    open: boolean;
+export interface Parameter { 
+    value: string;
     key: string;
     id: number;
-    user: UserEssential;
 }
 

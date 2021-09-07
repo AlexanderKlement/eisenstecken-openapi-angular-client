@@ -17,5 +17,6 @@ export interface Stock {
     lock: Lock;
     id: number;
     orderable: Orderable;
+    displayable_name?: string;
 }
 

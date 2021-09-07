@@ -15,9 +15,12 @@ import { DescriptiveArticleCreate } from './descriptiveArticleCreate';
 export interface OfferUpdate { 
     date: string;
     in_price_included: string;
-    in_price_excluded: string;
+    validity: string;
     payment: string;
     delivery: string;
+    discount_amount: number;
+    material_description: string;
     descriptive_articles: Array<DescriptiveArticleCreate>;
+    vat_id: number;
 }
 

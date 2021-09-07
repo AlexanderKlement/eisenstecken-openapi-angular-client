@@ -36,5 +36,6 @@ export interface Client {
     id: number;
     gender?: Gender;
     language: Language;
+    fullname?: string;
 }
 

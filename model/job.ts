@@ -35,5 +35,9 @@ export interface Job {
     type: JobType;
     path: string;
     status: JobStatus;
+    displayable_name?: string;
+    sub_jobs?: Array<Job>;
+    is_main?: boolean;
+    is_sub?: boolean;
 }
 

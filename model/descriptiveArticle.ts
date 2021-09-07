@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Vat } from './vat';
 
 
 export interface DescriptiveArticle { 
@@ -19,6 +20,11 @@ export interface DescriptiveArticle {
     discount: number;
     alternative: boolean;
     id: number;
-    header_article?: DescriptiveArticle;
+    descriptive_article?: Array<DescriptiveArticle>;
+    vat: Vat;
+    price_with_vat?: number;
+    price_without_vat?: number;
+    vat_amount?: number;
+    header?: boolean;
 }
 

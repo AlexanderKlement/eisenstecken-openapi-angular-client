@@ -16,11 +16,11 @@ import { Unit } from './unit';
 export interface OrderedArticle { 
     amount: number;
     discount: number;
-    vat: number;
     custom_description: string;
-    alternative: boolean;
+    price: number;
     id: number;
     ordered_unit: Unit;
     article: Article;
+    vat: number;
 }
 

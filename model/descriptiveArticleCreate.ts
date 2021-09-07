@@ -18,6 +18,7 @@ export interface DescriptiveArticleCreate {
     single_price: number;
     discount: number;
     alternative: boolean;
-    header_article?: number;
+    descriptive_articles?: Array<DescriptiveArticleCreate>;
+    vat_id: number;
 }
 

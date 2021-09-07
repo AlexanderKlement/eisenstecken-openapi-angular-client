@@ -14,5 +14,7 @@
 export interface Vat { 
     amount: number;
     id: number;
+    name?: string;
+    multiplier?: number;
 }
 

@@ -14,10 +14,10 @@
 export interface OrderedArticleCreate { 
     amount: number;
     discount: number;
-    vat: number;
     custom_description: string;
-    alternative: boolean;
+    price: number;
     ordered_unit_id: number;
     article_id: number;
+    vat_id: number;
 }
 

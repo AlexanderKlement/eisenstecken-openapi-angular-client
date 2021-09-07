@@ -14,9 +14,11 @@ import { Right } from './right';
 
 export interface User { 
     email: string;
+    tel: string;
     firstname: string;
     secondname: string;
     id: number;
+    fullname?: string;
     disabled?: boolean;
     rights?: Array<Right>;
 }

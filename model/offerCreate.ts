@@ -15,10 +15,13 @@ import { DescriptiveArticleCreate } from './descriptiveArticleCreate';
 export interface OfferCreate { 
     date: string;
     in_price_included: string;
-    in_price_excluded: string;
+    validity: string;
     payment: string;
     delivery: string;
+    discount_amount: number;
+    material_description: string;
     job_id: number;
     descriptive_articles: Array<DescriptiveArticleCreate>;
+    vat_id: number;
 }
 

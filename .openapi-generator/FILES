@@ -12,6 +12,8 @@ model/address.ts
 model/addressCreate.ts
 model/article.ts
 model/articleCreate.ts
+model/articleUpdate.ts
+model/articleUpdateFull.ts
 model/calendar.ts
 model/calendarEntry.ts
 model/calendarEntryCreate.ts
@@ -54,6 +56,8 @@ model/orderedArticle.ts
 model/orderedArticleCreate.ts
 model/outgoingInvoice.ts
 model/outgoingInvoiceCreate.ts
+model/parameter.ts
+model/parameterCreate.ts
 model/payment.ts
 model/paymentCreate.ts
 model/reminder.ts
@@ -62,6 +66,7 @@ model/reminderLevel.ts
 model/right.ts
 model/stock.ts
 model/stockCreate.ts
+model/subJobCreate.ts
 model/supplier.ts
 model/supplierCreate.ts
 model/text.ts
