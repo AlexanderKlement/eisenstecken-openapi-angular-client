@@ -12,21 +12,24 @@
 import { Address } from './address';
 import { Language } from './language';
 import { Article } from './article';
-import { Orderable } from './orderable';
+import { OrderableType } from './orderableType';
 import { Lock } from './lock';
 
 
 export interface Supplier { 
+    type: OrderableType;
+    name: string;
+    id: number;
+    displayable_name: string;
     lock: Lock;
     mail1: string;
     mail2: string;
     tel1: string;
     tel2: string;
-    id: number;
-    orderable: Orderable;
+    contact_person: string;
+    destination_code: string;
     address: Address;
     language: Language;
     articles?: Array<Article>;
-    displayable_name?: string;
 }
 

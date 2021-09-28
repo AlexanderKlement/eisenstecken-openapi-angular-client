@@ -16,5 +16,6 @@ export interface Orderable {
     type: OrderableType;
     name: string;
     id: number;
+    displayable_name: string;
 }
 

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { UserEssential } from './userEssential';
 import { Calendar } from './calendar';
 import { Lock } from './lock';
 
@@ -22,7 +22,7 @@ export interface CalendarEntry {
     end_time: string;
     id: number;
     timestamp: string;
-    user: User;
+    user: UserEssential;
     calendar: Calendar;
 }
 

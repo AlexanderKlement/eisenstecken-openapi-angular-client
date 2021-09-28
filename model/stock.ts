@@ -9,14 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Orderable } from './orderable';
+import { OrderableType } from './orderableType';
 import { Lock } from './lock';
 
 
 export interface Stock { 
-    lock: Lock;
+    type: OrderableType;
+    name: string;
     id: number;
-    orderable: Orderable;
-    displayable_name?: string;
+    displayable_name: string;
+    lock: Lock;
 }
 

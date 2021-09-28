@@ -9,6 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserEssential } from './userEssential';
+import { OrderBundle } from './orderBundle';
 import { Orderable } from './orderable';
 import { OrderStatusType } from './orderStatusType';
 import { OrderedArticle } from './orderedArticle';
@@ -26,5 +28,7 @@ export interface Order {
     pdf?: string;
     articles: Array<OrderedArticle>;
     status: OrderStatusType;
+    order_bundle?: OrderBundle;
+    user: UserEssential;
 }
 

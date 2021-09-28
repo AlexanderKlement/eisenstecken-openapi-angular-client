@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { UserEssential } from './userEssential';
 
 
 export interface Payment { 
@@ -18,6 +18,6 @@ export interface Payment {
     date: string;
     id: number;
     timestamp: string;
-    user: User;
+    user: UserEssential;
 }
 

@@ -10,34 +10,34 @@
  * Do not edit the class manually.
  */
 import { JobStatus } from './jobStatus';
-import { OutgoingInvoice } from './outgoingInvoice';
-import { JobType } from './jobType';
 import { Address } from './address';
-import { Offer } from './offer';
-import { Orderable } from './orderable';
+import { OrderableType } from './orderableType';
 import { Client } from './client';
+import { Recalculation } from './recalculation';
 import { Lock } from './lock';
+import { Workload } from './workload';
 
 
 export interface Job { 
+    type: OrderableType;
+    name: string;
+    id: number;
+    displayable_name: string;
     lock: Lock;
     description: string;
-    id: number;
-    orderable: Orderable;
     timestamp: string;
     year: number;
     code: string;
-    offers?: Array<Offer>;
-    outgoing_invoices?: Array<OutgoingInvoice>;
     client: Client;
     address: Address;
     archive: boolean;
-    type: JobType;
     path: string;
     status: JobStatus;
-    displayable_name?: string;
-    sub_jobs?: Array<Job>;
-    is_main?: boolean;
-    is_sub?: boolean;
+    sub_jobs: Array<Job>;
+    is_main: boolean;
+    is_sub: boolean;
+    is_mini: boolean;
+    workload?: Array<Workload>;
+    recalculation?: Recalculation;
 }
 

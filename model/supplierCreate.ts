@@ -17,6 +17,8 @@ export interface SupplierCreate {
     mail2: string;
     tel1: string;
     tel2: string;
+    contact_person: string;
+    destination_code: string;
     name: string;
     address: AddressCreate;
     language_code: string;

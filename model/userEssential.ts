@@ -16,7 +16,8 @@ export interface UserEssential {
     tel: string;
     firstname: string;
     secondname: string;
+    cost: number;
     id: number;
-    fullname?: string;
+    fullname: string;
 }
 

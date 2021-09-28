@@ -14,12 +14,12 @@
 /**
  * An enumeration.
  */
-export type JobStatusType = 'JOBSTATUS_CREATED' | 'JOBSTATUS_ACCEPTED' | 'JOBSTATUS_FINISHED' | 'JOBSTATUS_OTHER';
+export type JobStatusType = 'JOBSTATUS_CREATED' | 'JOBSTATUS_ACCEPTED' | 'JOBSTATUS_COMPLETED' | 'JOBSTATUS_DECLINED';
 
 export const JobStatusType = {
     Created: 'JOBSTATUS_CREATED' as JobStatusType,
     Accepted: 'JOBSTATUS_ACCEPTED' as JobStatusType,
-    Finished: 'JOBSTATUS_FINISHED' as JobStatusType,
-    Other: 'JOBSTATUS_OTHER' as JobStatusType
+    Completed: 'JOBSTATUS_COMPLETED' as JobStatusType,
+    Declined: 'JOBSTATUS_DECLINED' as JobStatusType
 };
 

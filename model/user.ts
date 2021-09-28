@@ -17,9 +17,14 @@ export interface User {
     tel: string;
     firstname: string;
     secondname: string;
+    cost: number;
     id: number;
-    fullname?: string;
+    fullname: string;
+    handy: string;
+    dial: string;
     disabled?: boolean;
     rights?: Array<Right>;
+    employee: boolean;
+    office: boolean;
 }
 

@@ -9,16 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OrderedArticleCreate } from './orderedArticleCreate';
+import { DescriptiveArticleCreate } from './descriptiveArticleCreate';
 
 
 export interface OutgoingInvoiceCreate { 
     number: string;
     date: string;
-    in_price_included: string;
-    in_price_excluded: string;
-    payment_text: string;
-    delivery: string;
-    articles: Array<OrderedArticleCreate>;
+    payment_condition: string;
+    payment_date: string;
+    descriptive_articles: Array<DescriptiveArticleCreate>;
+    vat_id: number;
+    job_id: number;
 }
 

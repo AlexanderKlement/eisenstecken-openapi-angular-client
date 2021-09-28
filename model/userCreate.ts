@@ -16,6 +16,11 @@ export interface UserCreate {
     tel: string;
     firstname: string;
     secondname: string;
+    cost: number;
     password: string;
+    handy: string;
+    dial: string;
+    employee: boolean;
+    office: boolean;
 }
 

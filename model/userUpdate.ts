@@ -16,5 +16,10 @@ export interface UserUpdate {
     tel: string;
     firstname: string;
     secondname: string;
+    cost: number;
+    handy: string;
+    dial: string;
+    employee: boolean;
+    office: boolean;
 }
 

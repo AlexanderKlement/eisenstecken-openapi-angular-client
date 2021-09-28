@@ -14,11 +14,11 @@
 /**
  * An enumeration.
  */
-export type OrderableType = 'JOB' | 'STOCK' | 'SUPPLIER';
+export type OrderableType = 'job' | 'stock' | 'supplier';
 
 export const OrderableType = {
-    Job: 'JOB' as OrderableType,
-    Stock: 'STOCK' as OrderableType,
-    Supplier: 'SUPPLIER' as OrderableType
+    Job: 'job' as OrderableType,
+    Stock: 'stock' as OrderableType,
+    Supplier: 'supplier' as OrderableType
 };
 

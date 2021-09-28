@@ -11,7 +11,8 @@
  */
 import { Payment } from './payment';
 import { Reminder } from './reminder';
-import { OrderedArticle } from './orderedArticle';
+import { DescriptiveArticle } from './descriptiveArticle';
+import { Vat } from './vat';
 import { Lock } from './lock';
 
 
@@ -19,15 +20,15 @@ export interface OutgoingInvoice {
     lock: Lock;
     number: string;
     date: string;
-    in_price_included: string;
-    in_price_excluded: string;
-    payment_text: string;
-    delivery: string;
+    payment_condition: string;
+    payment_date: string;
     id: number;
     timestamp: string;
     pdf?: string;
     payment?: Payment;
-    articles: Array<OrderedArticle>;
+    descriptive_articles: Array<DescriptiveArticle>;
     reminders: Array<Reminder>;
+    vat: Vat;
+    job_id: number;
 }
 
