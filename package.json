@@ -1,6 +1,6 @@
 {
   "name": "eisenstecken-openapi-angular-library",
-  "version": "8.0.7",
+  "version": "8.1.6",
   "description": "OpenAPI client for eisenstecken-openapi-angular-library",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [
@@ -12,15 +12,15 @@
     "build": "ng-packagr -p ng-package.json"
   },
   "peerDependencies": {
-    "@angular/core": "^12.0.2",
+    "@angular/core": "^12.1.2",
     "rxjs": "^6.6.0"
   },
   "devDependencies": {
-    "@angular/common": "^12.0.2",
-    "@angular/compiler": "^12.0.2",
-    "@angular/compiler-cli": "^12.0.2",
-    "@angular/core": "^12.0.2",
-    "@angular/platform-browser": "^12.0.2",
+    "@angular/common": "^12.1.2",
+    "@angular/compiler": "^12.1.2",
+    "@angular/compiler-cli": "^12.1.2",
+    "@angular/core": "^12.1.2",
+    "@angular/platform-browser": "^12.1.2",
     "ng-packagr": "^11.0.2",
     "reflect-metadata": "^0.1.3",
     "rxjs": "^6.6.0",

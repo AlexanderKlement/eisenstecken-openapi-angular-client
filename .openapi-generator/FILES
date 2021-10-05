@@ -32,6 +32,9 @@ model/country.ts
 model/credential.ts
 model/credentialCreate.ts
 model/credentialUpdate.ts
+model/deliveryNote.ts
+model/deliveryNoteCreate.ts
+model/deliveryNoteUpdate.ts
 model/descriptiveArticle.ts
 model/descriptiveArticleCreate.ts
 model/drive.ts
@@ -39,6 +42,7 @@ model/driveCreate.ts
 model/eatingPlace.ts
 model/expense.ts
 model/expenseCreate.ts
+model/fee.ts
 model/gender.ts
 model/hTTPValidationError.ts
 model/ingoingInvoice.ts
@@ -49,11 +53,13 @@ model/jobSection.ts
 model/jobSectionCreate.ts
 model/jobStatus.ts
 model/jobStatusType.ts
-model/jobType.ts
 model/jobTypeType.ts
 model/jobUpdate.ts
+model/journey.ts
 model/language.ts
 model/lock.ts
+model/meal.ts
+model/mealSum.ts
 model/models.ts
 model/note.ts
 model/noteCreate.ts

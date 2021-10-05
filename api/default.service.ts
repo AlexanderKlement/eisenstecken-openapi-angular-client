@@ -39,7 +39,11 @@ import { Country } from '../model/models';
 import { Credential } from '../model/models';
 import { CredentialCreate } from '../model/models';
 import { CredentialUpdate } from '../model/models';
+import { DeliveryNote } from '../model/models';
+import { DeliveryNoteCreate } from '../model/models';
+import { DeliveryNoteUpdate } from '../model/models';
 import { EatingPlace } from '../model/models';
+import { Fee } from '../model/models';
 import { Gender } from '../model/models';
 import { HTTPValidationError } from '../model/models';
 import { IngoingInvoice } from '../model/models';
@@ -48,10 +52,12 @@ import { Job } from '../model/models';
 import { JobCreate } from '../model/models';
 import { JobStatus } from '../model/models';
 import { JobStatusType } from '../model/models';
-import { JobType } from '../model/models';
 import { JobUpdate } from '../model/models';
+import { Journey } from '../model/models';
 import { Language } from '../model/models';
 import { Lock } from '../model/models';
+import { Meal } from '../model/models';
+import { MealSum } from '../model/models';
 import { Note } from '../model/models';
 import { NoteCreate } from '../model/models';
 import { Offer } from '../model/models';
@@ -104,6 +110,7 @@ import { WorkDayFinish } from '../model/models';
 import { WorkDayStart } from '../model/models';
 import { WorkDayStop } from '../model/models';
 import { WorkDayUpdate } from '../model/models';
+import { Workload } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -1317,6 +1324,79 @@ export class DefaultService implements DefaultServiceInterface {
         return this.httpClient.post<Credential>(`${this.configuration.basePath}/credential/`,
             credentialCreate,
             {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Create Delivery Note
+     * @param userId 
+     * @param deliveryNoteCreate 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createDeliveryNoteDeliveryNotePost(userId: number, deliveryNoteCreate: DeliveryNoteCreate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<DeliveryNote>;
+    public createDeliveryNoteDeliveryNotePost(userId: number, deliveryNoteCreate: DeliveryNoteCreate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<DeliveryNote>>;
+    public createDeliveryNoteDeliveryNotePost(userId: number, deliveryNoteCreate: DeliveryNoteCreate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<DeliveryNote>>;
+    public createDeliveryNoteDeliveryNotePost(userId: number, deliveryNoteCreate: DeliveryNoteCreate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling createDeliveryNoteDeliveryNotePost.');
+        }
+        if (deliveryNoteCreate === null || deliveryNoteCreate === undefined) {
+            throw new Error('Required parameter deliveryNoteCreate was null or undefined when calling createDeliveryNoteDeliveryNotePost.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<DeliveryNote>(`${this.configuration.basePath}/delivery_note/`,
+            deliveryNoteCreate,
+            {
+                params: queryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -2554,72 +2634,6 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Create Work Day
-     * @param workDayId 
-     * @param workDayUpdate 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
-    public createWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
-    public createWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
-    public createWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (workDayId === null || workDayId === undefined) {
-            throw new Error('Required parameter workDayId was null or undefined when calling createWorkDayWorkDayWorkDayIdPut.');
-        }
-        if (workDayUpdate === null || workDayUpdate === undefined) {
-            throw new Error('Required parameter workDayUpdate was null or undefined when calling createWorkDayWorkDayWorkDayIdPut.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.put<WorkDay>(`${this.configuration.basePath}/work_day/${encodeURIComponent(String(workDayId))}`,
-            workDayUpdate,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * Delete Article
      * @param articleId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -3563,6 +3577,72 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Finish Work Day By User
+     * @param userId 
+     * @param workDayFinish 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public finishWorkDayByUserWorkDayFinishUserIdPost(userId: number, workDayFinish: WorkDayFinish, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public finishWorkDayByUserWorkDayFinishUserIdPost(userId: number, workDayFinish: WorkDayFinish, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public finishWorkDayByUserWorkDayFinishUserIdPost(userId: number, workDayFinish: WorkDayFinish, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public finishWorkDayByUserWorkDayFinishUserIdPost(userId: number, workDayFinish: WorkDayFinish, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling finishWorkDayByUserWorkDayFinishUserIdPost.');
+        }
+        if (workDayFinish === null || workDayFinish === undefined) {
+            throw new Error('Required parameter workDayFinish was null or undefined when calling finishWorkDayByUserWorkDayFinishUserIdPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<WorkDay>(`${this.configuration.basePath}/work_day/finish/${encodeURIComponent(String(userId))}`,
+            workDayFinish,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Finish Work Day
      * @param workDayFinish 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -3614,6 +3694,58 @@ export class DefaultService implements DefaultServiceInterface {
 
         return this.httpClient.post<WorkDay>(`${this.configuration.basePath}/work_day/finish`,
             workDayFinish,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get Available Work Day Actions By User
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAvailableWorkDayActionsByUserWorkDayAvailableActionsUserIdGet(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDayAction>;
+    public getAvailableWorkDayActionsByUserWorkDayAvailableActionsUserIdGet(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDayAction>>;
+    public getAvailableWorkDayActionsByUserWorkDayAvailableActionsUserIdGet(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDayAction>>;
+    public getAvailableWorkDayActionsByUserWorkDayAvailableActionsUserIdGet(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling getAvailableWorkDayActionsByUserWorkDayAvailableActionsUserIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<WorkDayAction>(`${this.configuration.basePath}/work_day/available_actions/${encodeURIComponent(String(userId))}`,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -3801,6 +3933,110 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Get Current Work Day By User
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCurrentWorkDayByUserWorkDayCurrentUserIdGet(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public getCurrentWorkDayByUserWorkDayCurrentUserIdGet(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public getCurrentWorkDayByUserWorkDayCurrentUserIdGet(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public getCurrentWorkDayByUserWorkDayCurrentUserIdGet(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling getCurrentWorkDayByUserWorkDayCurrentUserIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<WorkDay>(`${this.configuration.basePath}/work_day/current/${encodeURIComponent(String(userId))}`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get Current Work Day Length Minutes By User
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCurrentWorkDayLengthMinutesByUserWorkDayLenghtMinutesUserIdGet(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public getCurrentWorkDayLengthMinutesByUserWorkDayLenghtMinutesUserIdGet(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public getCurrentWorkDayLengthMinutesByUserWorkDayLenghtMinutesUserIdGet(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public getCurrentWorkDayLengthMinutesByUserWorkDayLenghtMinutesUserIdGet(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling getCurrentWorkDayLengthMinutesByUserWorkDayLenghtMinutesUserIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/work_day/lenght_minutes/${encodeURIComponent(String(userId))}`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Get Current Work Day Length Minutes
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -3897,14 +4133,26 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Get Current Work Day
+     * Get Delivery Notes
+     * @param skip 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCurrentWorkDayWorkDayFinishedGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
-    public getCurrentWorkDayWorkDayFinishedGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
-    public getCurrentWorkDayWorkDayFinishedGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
-    public getCurrentWorkDayWorkDayFinishedGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public getDeliveryNotesDeliveryNoteGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<DeliveryNote>>;
+    public getDeliveryNotesDeliveryNoteGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<DeliveryNote>>>;
+    public getDeliveryNotesDeliveryNoteGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<DeliveryNote>>>;
+    public getDeliveryNotesDeliveryNoteGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -3933,8 +4181,9 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<WorkDay>(`${this.configuration.basePath}/work_day/finished`,
+        return this.httpClient.get<Array<DeliveryNote>>(`${this.configuration.basePath}/delivery_note`,
             {
+                params: queryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -4011,17 +4260,17 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Get Jobs By Status
-     * @param jobStatus 
+     * Get Finished Work Day By User
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getJobsByStatusJobStatusJobStatusGet(jobStatus: JobStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Job>>;
-    public getJobsByStatusJobStatusJobStatusGet(jobStatus: JobStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Job>>>;
-    public getJobsByStatusJobStatusJobStatusGet(jobStatus: JobStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Job>>>;
-    public getJobsByStatusJobStatusJobStatusGet(jobStatus: JobStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (jobStatus === null || jobStatus === undefined) {
-            throw new Error('Required parameter jobStatus was null or undefined when calling getJobsByStatusJobStatusJobStatusGet.');
+    public getFinishedWorkDayByUserWorkDayFinishedUserIdGet(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public getFinishedWorkDayByUserWorkDayFinishedUserIdGet(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public getFinishedWorkDayByUserWorkDayFinishedUserIdGet(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public getFinishedWorkDayByUserWorkDayFinishedUserIdGet(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling getFinishedWorkDayByUserWorkDayFinishedUserIdGet.');
         }
 
         let headers = this.defaultHeaders;
@@ -4051,7 +4300,7 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<Job>>(`${this.configuration.basePath}/job/status/${encodeURIComponent(String(jobStatus))}`,
+        return this.httpClient.get<WorkDay>(`${this.configuration.basePath}/work_day/finished/${encodeURIComponent(String(userId))}`,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -4063,26 +4312,14 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Get Own Work Days
-     * @param skip 
-     * @param limit 
+     * Get Finished Work Day
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getOwnWorkDaysWorkDayGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<WorkDay>>;
-    public getOwnWorkDaysWorkDayGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<WorkDay>>>;
-    public getOwnWorkDaysWorkDayGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<WorkDay>>>;
-    public getOwnWorkDaysWorkDayGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (skip !== undefined && skip !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>skip, 'skip');
-        }
-        if (limit !== undefined && limit !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>limit, 'limit');
-        }
+    public getFinishedWorkDayWorkDayFinishedGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public getFinishedWorkDayWorkDayFinishedGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public getFinishedWorkDayWorkDayFinishedGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public getFinishedWorkDayWorkDayFinishedGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -4111,9 +4348,56 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<WorkDay>>(`${this.configuration.basePath}/work_day/`,
+        return this.httpClient.get<WorkDay>(`${this.configuration.basePath}/work_day/finished`,
             {
-                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get Next Delivery Note Number
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getNextDeliveryNoteNumberDeliveryNoteNumberGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<string>;
+    public getNextDeliveryNoteNumberDeliveryNoteNumberGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<string>>;
+    public getNextDeliveryNoteNumberDeliveryNoteNumberGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<string>>;
+    public getNextDeliveryNoteNumberDeliveryNoteNumberGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<string>(`${this.configuration.basePath}/delivery_note/number`,
+            {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -4260,47 +4544,6 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<Array<JobStatus>>(`${this.configuration.basePath}/job/status_options/`,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Get Type Options
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getTypeOptionsJobTypeOptionsGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<JobType>>;
-    public getTypeOptionsJobTypeOptionsGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<JobType>>>;
-    public getTypeOptionsJobTypeOptionsGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<JobType>>>;
-    public getTypeOptionsJobTypeOptionsGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.get<Array<JobType>>(`${this.configuration.basePath}/job/type_options/`,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -4796,6 +5039,58 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<Lock>(`${this.configuration.basePath}/recalculation/islocked/${encodeURIComponent(String(recalculationId))}`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Islocked Stock
+     * @param stockId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public islockedStockStockIslockedStockIdGet(stockId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Lock>;
+    public islockedStockStockIslockedStockIdGet(stockId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Lock>>;
+    public islockedStockStockIslockedStockIdGet(stockId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Lock>>;
+    public islockedStockStockIslockedStockIdGet(stockId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (stockId === null || stockId === undefined) {
+            throw new Error('Required parameter stockId was null or undefined when calling islockedStockStockIslockedStockIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Lock>(`${this.configuration.basePath}/stock/islocked/${encodeURIComponent(String(stockId))}`,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -5588,59 +5883,6 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.post<boolean>(`${this.configuration.basePath}/stock/lock/${encodeURIComponent(String(stockId))}`,
-            null,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Lock Stock
-     * @param stockId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public lockStockStockUnlockStockIdPost(stockId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
-    public lockStockStockUnlockStockIdPost(stockId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
-    public lockStockStockUnlockStockIdPost(stockId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
-    public lockStockStockUnlockStockIdPost(stockId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (stockId === null || stockId === undefined) {
-            throw new Error('Required parameter stockId was null or undefined when calling lockStockStockUnlockStockIdPost.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.post<boolean>(`${this.configuration.basePath}/stock/unlock/${encodeURIComponent(String(stockId))}`,
             null,
             {
                 responseType: <any>responseType_,
@@ -7450,6 +7692,133 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Read Fee Count
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readFeeCountFeeCountGet(userId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readFeeCountFeeCountGet(userId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readFeeCountFeeCountGet(userId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readFeeCountFeeCountGet(userId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/fee/count`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Fees
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readFeesFeeGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Fee>>;
+    public readFeesFeeGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Fee>>>;
+    public readFeesFeeGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Fee>>>;
+    public readFeesFeeGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Fee>>(`${this.configuration.basePath}/fee/`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Read Genders
      * @param skip 
      * @param limit 
@@ -7641,13 +8010,30 @@ export class DefaultService implements DefaultServiceInterface {
 
     /**
      * Read Job Count
+     * @param status 
+     * @param excludeSubjobs 
+     * @param clientId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readJobCountJobCountGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public readJobCountJobCountGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public readJobCountJobCountGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public readJobCountJobCountGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readJobCountJobCountGet(status?: JobStatusType, excludeSubjobs?: boolean, clientId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readJobCountJobCountGet(status?: JobStatusType, excludeSubjobs?: boolean, clientId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readJobCountJobCountGet(status?: JobStatusType, excludeSubjobs?: boolean, clientId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readJobCountJobCountGet(status?: JobStatusType, excludeSubjobs?: boolean, clientId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (status !== undefined && status !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>status, 'status');
+        }
+        if (excludeSubjobs !== undefined && excludeSubjobs !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>excludeSubjobs, 'exclude_subjobs');
+        }
+        if (clientId !== undefined && clientId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>clientId, 'client_id');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -7677,61 +8063,6 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<number>(`${this.configuration.basePath}/job/count`,
-            {
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Read Job Count
-     * @param status 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public readJobCountJobCountMainGet(status?: JobStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public readJobCountJobCountMainGet(status?: JobStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public readJobCountJobCountMainGet(status?: JobStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public readJobCountJobCountMainGet(status?: JobStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (status !== undefined && status !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>status, 'status');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.get<number>(`${this.configuration.basePath}/job/count/main`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -7796,34 +8127,17 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Read Jobs By Client
-     * @param clientId 
-     * @param filter 
-     * @param skip 
-     * @param limit 
+     * Read Job Status
+     * @param jobId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readJobsByClientJobClientClientIdCountGet(clientId: number, filter?: string, skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public readJobsByClientJobClientClientIdCountGet(clientId: number, filter?: string, skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public readJobsByClientJobClientClientIdCountGet(clientId: number, filter?: string, skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public readJobsByClientJobClientClientIdCountGet(clientId: number, filter?: string, skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (clientId === null || clientId === undefined) {
-            throw new Error('Required parameter clientId was null or undefined when calling readJobsByClientJobClientClientIdCountGet.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (filter !== undefined && filter !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>filter, 'filter');
-        }
-        if (skip !== undefined && skip !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>skip, 'skip');
-        }
-        if (limit !== undefined && limit !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>limit, 'limit');
+    public readJobStatusJobStatusJobIdGet(jobId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<JobStatus>;
+    public readJobStatusJobStatusJobIdGet(jobId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<JobStatus>>;
+    public readJobStatusJobStatusJobIdGet(jobId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<JobStatus>>;
+    public readJobStatusJobStatusJobIdGet(jobId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (jobId === null || jobId === undefined) {
+            throw new Error('Required parameter jobId was null or undefined when calling readJobStatusJobStatusJobIdGet.');
         }
 
         let headers = this.defaultHeaders;
@@ -7853,79 +8167,8 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<number>(`${this.configuration.basePath}/job/client/${encodeURIComponent(String(clientId))}/count`,
+        return this.httpClient.get<JobStatus>(`${this.configuration.basePath}/job/status/${encodeURIComponent(String(jobId))}`,
             {
-                params: queryParameters,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Read Jobs By Client
-     * @param clientId 
-     * @param filter 
-     * @param skip 
-     * @param limit 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public readJobsByClientJobClientClientIdGet(clientId: number, filter?: string, skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Job>>;
-    public readJobsByClientJobClientClientIdGet(clientId: number, filter?: string, skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Job>>>;
-    public readJobsByClientJobClientClientIdGet(clientId: number, filter?: string, skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Job>>>;
-    public readJobsByClientJobClientClientIdGet(clientId: number, filter?: string, skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (clientId === null || clientId === undefined) {
-            throw new Error('Required parameter clientId was null or undefined when calling readJobsByClientJobClientClientIdGet.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (filter !== undefined && filter !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>filter, 'filter');
-        }
-        if (skip !== undefined && skip !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>skip, 'skip');
-        }
-        if (limit !== undefined && limit !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>limit, 'limit');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (OAuth2PasswordBearer) required
-        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.get<Array<Job>>(`${this.configuration.basePath}/job/client/${encodeURIComponent(String(clientId))}`,
-            {
-                params: queryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -7939,13 +8182,17 @@ export class DefaultService implements DefaultServiceInterface {
      * Read Jobs
      * @param skip 
      * @param limit 
+     * @param filterString 
+     * @param clientId 
+     * @param status 
+     * @param excludeSubjobs 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readJobsJobGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Job>>;
-    public readJobsJobGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Job>>>;
-    public readJobsJobGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Job>>>;
-    public readJobsJobGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readJobsJobGet(skip?: number, limit?: number, filterString?: string, clientId?: number, status?: JobStatusType, excludeSubjobs?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Job>>;
+    public readJobsJobGet(skip?: number, limit?: number, filterString?: string, clientId?: number, status?: JobStatusType, excludeSubjobs?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Job>>>;
+    public readJobsJobGet(skip?: number, limit?: number, filterString?: string, clientId?: number, status?: JobStatusType, excludeSubjobs?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Job>>>;
+    public readJobsJobGet(skip?: number, limit?: number, filterString?: string, clientId?: number, status?: JobStatusType, excludeSubjobs?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (skip !== undefined && skip !== null) {
@@ -7955,6 +8202,22 @@ export class DefaultService implements DefaultServiceInterface {
         if (limit !== undefined && limit !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
             <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
+        if (clientId !== undefined && clientId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>clientId, 'client_id');
+        }
+        if (status !== undefined && status !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>status, 'status');
+        }
+        if (excludeSubjobs !== undefined && excludeSubjobs !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>excludeSubjobs, 'exclude_subjobs');
         }
 
         let headers = this.defaultHeaders;
@@ -7985,6 +8248,133 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<Array<Job>>(`${this.configuration.basePath}/job/`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Journey Count
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readJourneyCountJourneyCountGet(userId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readJourneyCountJourneyCountGet(userId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readJourneyCountJourneyCountGet(userId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readJourneyCountJourneyCountGet(userId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/journey/count`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Journeys
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readJourneysJourneyGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Journey>>;
+    public readJourneysJourneyGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Journey>>>;
+    public readJourneysJourneyGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Journey>>>;
+    public readJourneysJourneyGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Journey>>(`${this.configuration.basePath}/journey/`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -8051,35 +8441,20 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Read Mainjobs
-     * @param skip 
-     * @param limit 
-     * @param filterString 
-     * @param status 
+     * Read Meal Count
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readMainjobsJobMainGet(skip?: number, limit?: number, filterString?: string, status?: JobStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Job>>;
-    public readMainjobsJobMainGet(skip?: number, limit?: number, filterString?: string, status?: JobStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Job>>>;
-    public readMainjobsJobMainGet(skip?: number, limit?: number, filterString?: string, status?: JobStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Job>>>;
-    public readMainjobsJobMainGet(skip?: number, limit?: number, filterString?: string, status?: JobStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readMealCountMealCountGet(userId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readMealCountMealCountGet(userId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readMealCountMealCountGet(userId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readMealCountMealCountGet(userId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (skip !== undefined && skip !== null) {
+        if (userId !== undefined && userId !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>skip, 'skip');
-        }
-        if (limit !== undefined && limit !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>limit, 'limit');
-        }
-        if (filterString !== undefined && filterString !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>filterString, 'filter_string');
-        }
-        if (status !== undefined && status !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>status, 'status');
+            <any>userId, 'user_id');
         }
 
         let headers = this.defaultHeaders;
@@ -8109,7 +8484,192 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<Job>>(`${this.configuration.basePath}/job/main`,
+        return this.httpClient.get<number>(`${this.configuration.basePath}/meal/count`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Meal Sums
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readMealSumsMealSumCountGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readMealSumsMealSumCountGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readMealSumsMealSumCountGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readMealSumsMealSumCountGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/meal/sum/count`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Meal Sums
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readMealSumsMealSumGet(skip?: number, limit?: number, filterString?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<MealSum>>;
+    public readMealSumsMealSumGet(skip?: number, limit?: number, filterString?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<MealSum>>>;
+    public readMealSumsMealSumGet(skip?: number, limit?: number, filterString?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<MealSum>>>;
+    public readMealSumsMealSumGet(skip?: number, limit?: number, filterString?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<MealSum>>(`${this.configuration.basePath}/meal/sum`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Meals
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readMealsMealGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Meal>>;
+    public readMealsMealGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Meal>>>;
+    public readMealsMealGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Meal>>>;
+    public readMealsMealGet(skip?: number, limit?: number, filterString?: string, userId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Meal>>(`${this.configuration.basePath}/meal/`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -8977,19 +9537,34 @@ export class DefaultService implements DefaultServiceInterface {
     /**
      * Read Orders From
      * @param orderableFromId 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
      * @param status 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, status?: OrderStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Order>>;
-    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, status?: OrderStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Order>>>;
-    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, status?: OrderStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Order>>>;
-    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, status?: OrderStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Order>>;
+    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Order>>>;
+    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Order>>>;
+    public readOrdersFromOrderFromOrderableFromIdGet(orderableFromId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (orderableFromId === null || orderableFromId === undefined) {
             throw new Error('Required parameter orderableFromId was null or undefined when calling readOrdersFromOrderFromOrderableFromIdGet.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
         if (status !== undefined && status !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
             <any>status, 'status');
@@ -9228,21 +9803,96 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Read Orders To
+     * Read Orders To Count
      * @param orderableToId 
      * @param status 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, status?: OrderStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Order>>;
-    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, status?: OrderStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Order>>>;
-    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, status?: OrderStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Order>>>;
-    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, status?: OrderStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readOrdersToCountOrderToOrderableToIdCountGet(orderableToId: number, status?: OrderStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readOrdersToCountOrderToOrderableToIdCountGet(orderableToId: number, status?: OrderStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readOrdersToCountOrderToOrderableToIdCountGet(orderableToId: number, status?: OrderStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readOrdersToCountOrderToOrderableToIdCountGet(orderableToId: number, status?: OrderStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (orderableToId === null || orderableToId === undefined) {
+            throw new Error('Required parameter orderableToId was null or undefined when calling readOrdersToCountOrderToOrderableToIdCountGet.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (status !== undefined && status !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>status, 'status');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/order/to/${encodeURIComponent(String(orderableToId))}/count`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Orders To
+     * @param orderableToId 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param status 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Order>>;
+    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Order>>>;
+    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Order>>>;
+    public readOrdersToOrderToOrderableToIdGet(orderableToId: number, skip?: number, limit?: number, filterString?: string, status?: OrderStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (orderableToId === null || orderableToId === undefined) {
             throw new Error('Required parameter orderableToId was null or undefined when calling readOrdersToOrderToOrderableToIdGet.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
         if (status !== undefined && status !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
             <any>status, 'status');
@@ -9890,16 +10540,65 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
-     * Read Stocks
-     * @param skip 
-     * @param limit 
+     * Read Stock Count
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readStocksStockGet(skip?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Stock>>;
-    public readStocksStockGet(skip?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Stock>>>;
-    public readStocksStockGet(skip?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Stock>>>;
-    public readStocksStockGet(skip?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readStockCountStockCountGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readStockCountStockCountGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readStockCountStockCountGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readStockCountStockCountGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/stock/count`,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Stocks
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readStocksStockGet(skip?: number, limit?: number, filterString?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Stock>>;
+    public readStocksStockGet(skip?: number, limit?: number, filterString?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Stock>>>;
+    public readStocksStockGet(skip?: number, limit?: number, filterString?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Stock>>>;
+    public readStocksStockGet(skip?: number, limit?: number, filterString?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (skip !== undefined && skip !== null) {
@@ -9909,6 +10608,10 @@ export class DefaultService implements DefaultServiceInterface {
         if (limit !== undefined && limit !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
             <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
         }
 
         let headers = this.defaultHeaders;
@@ -10491,13 +11194,20 @@ export class DefaultService implements DefaultServiceInterface {
 
     /**
      * Read User Count
+     * @param employeesOnly 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readUserCountUsersCountGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
-    public readUserCountUsersCountGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
-    public readUserCountUsersCountGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
-    public readUserCountUsersCountGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readUserCountUsersCountGet(employeesOnly?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readUserCountUsersCountGet(employeesOnly?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readUserCountUsersCountGet(employeesOnly?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readUserCountUsersCountGet(employeesOnly?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (employeesOnly !== undefined && employeesOnly !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>employeesOnly, 'employees_only');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -10528,6 +11238,7 @@ export class DefaultService implements DefaultServiceInterface {
 
         return this.httpClient.get<number>(`${this.configuration.basePath}/users/count`,
             {
+                params: queryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -10738,13 +11449,14 @@ export class DefaultService implements DefaultServiceInterface {
      * @param skip 
      * @param filterString 
      * @param limit 
+     * @param employeesOnly 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<User>>;
-    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<User>>>;
-    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<User>>>;
-    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, employeesOnly?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<User>>;
+    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, employeesOnly?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<User>>>;
+    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, employeesOnly?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<User>>>;
+    public readUsersUsersGet(skip?: number, filterString?: string, limit?: number, employeesOnly?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (skip !== undefined && skip !== null) {
@@ -10758,6 +11470,10 @@ export class DefaultService implements DefaultServiceInterface {
         if (limit !== undefined && limit !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
             <any>limit, 'limit');
+        }
+        if (employeesOnly !== undefined && employeesOnly !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>employeesOnly, 'employees_only');
         }
 
         let headers = this.defaultHeaders;
@@ -10887,6 +11603,143 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.get<Array<Vat>>(`${this.configuration.basePath}/vat/`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Workload Count
+     * @param userId 
+     * @param jobId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readWorkloadCountWorkloadCountGet(userId?: number, jobId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public readWorkloadCountWorkloadCountGet(userId?: number, jobId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public readWorkloadCountWorkloadCountGet(userId?: number, jobId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public readWorkloadCountWorkloadCountGet(userId?: number, jobId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+        if (jobId !== undefined && jobId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>jobId, 'job_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<number>(`${this.configuration.basePath}/workload/count`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read Workloads
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     * @param jobId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readWorkloadsWorkloadGet(skip?: number, limit?: number, filterString?: string, userId?: number, jobId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Workload>>;
+    public readWorkloadsWorkloadGet(skip?: number, limit?: number, filterString?: string, userId?: number, jobId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Workload>>>;
+    public readWorkloadsWorkloadGet(skip?: number, limit?: number, filterString?: string, userId?: number, jobId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Workload>>>;
+    public readWorkloadsWorkloadGet(skip?: number, limit?: number, filterString?: string, userId?: number, jobId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (skip !== undefined && skip !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>skip, 'skip');
+        }
+        if (limit !== undefined && limit !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>limit, 'limit');
+        }
+        if (filterString !== undefined && filterString !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>filterString, 'filter_string');
+        }
+        if (userId !== undefined && userId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>userId, 'user_id');
+        }
+        if (jobId !== undefined && jobId !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>jobId, 'job_id');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.get<Array<Workload>>(`${this.configuration.basePath}/workload/`,
             {
                 params: queryParameters,
                 responseType: <any>responseType_,
@@ -11105,6 +11958,72 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Start Work Phase By User
+     * @param userId 
+     * @param workDayStart 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public startWorkPhaseByUserWorkDayStartUserIdPost(userId: number, workDayStart: WorkDayStart, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public startWorkPhaseByUserWorkDayStartUserIdPost(userId: number, workDayStart: WorkDayStart, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public startWorkPhaseByUserWorkDayStartUserIdPost(userId: number, workDayStart: WorkDayStart, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public startWorkPhaseByUserWorkDayStartUserIdPost(userId: number, workDayStart: WorkDayStart, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling startWorkPhaseByUserWorkDayStartUserIdPost.');
+        }
+        if (workDayStart === null || workDayStart === undefined) {
+            throw new Error('Required parameter workDayStart was null or undefined when calling startWorkPhaseByUserWorkDayStartUserIdPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<WorkDay>(`${this.configuration.basePath}/work_day/start/${encodeURIComponent(String(userId))}`,
+            workDayStart,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Start Work Phase
      * @param workDayStart 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -11156,6 +12075,72 @@ export class DefaultService implements DefaultServiceInterface {
 
         return this.httpClient.post<WorkDay>(`${this.configuration.basePath}/work_day/start`,
             workDayStart,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Stop Work Phase By User
+     * @param userId 
+     * @param workDayStop 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public stopWorkPhaseByUserWorkDayStopUserIdPost(userId: number, workDayStop: WorkDayStop, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public stopWorkPhaseByUserWorkDayStopUserIdPost(userId: number, workDayStop: WorkDayStop, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public stopWorkPhaseByUserWorkDayStopUserIdPost(userId: number, workDayStop: WorkDayStop, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public stopWorkPhaseByUserWorkDayStopUserIdPost(userId: number, workDayStop: WorkDayStop, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling stopWorkPhaseByUserWorkDayStopUserIdPost.');
+        }
+        if (workDayStop === null || workDayStop === undefined) {
+            throw new Error('Required parameter workDayStop was null or undefined when calling stopWorkPhaseByUserWorkDayStopUserIdPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<WorkDay>(`${this.configuration.basePath}/work_day/stop/${encodeURIComponent(String(userId))}`,
+            workDayStop,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -11617,6 +12602,59 @@ export class DefaultService implements DefaultServiceInterface {
         }
 
         return this.httpClient.post<boolean>(`${this.configuration.basePath}/recalculation/unlock/${encodeURIComponent(String(recalculationId))}`,
+            null,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Unlock Stock
+     * @param stockId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public unlockStockStockUnlockStockIdPost(stockId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<boolean>;
+    public unlockStockStockUnlockStockIdPost(stockId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<boolean>>;
+    public unlockStockStockUnlockStockIdPost(stockId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<boolean>>;
+    public unlockStockStockUnlockStockIdPost(stockId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (stockId === null || stockId === undefined) {
+            throw new Error('Required parameter stockId was null or undefined when calling unlockStockStockUnlockStockIdPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<boolean>(`${this.configuration.basePath}/stock/unlock/${encodeURIComponent(String(stockId))}`,
             null,
             {
                 responseType: <any>responseType_,
@@ -12130,6 +13168,72 @@ export class DefaultService implements DefaultServiceInterface {
     }
 
     /**
+     * Update Delivery Note
+     * @param deliveryNoteId 
+     * @param deliveryNoteUpdate 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut(deliveryNoteId: number, deliveryNoteUpdate: DeliveryNoteUpdate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<DeliveryNote>;
+    public updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut(deliveryNoteId: number, deliveryNoteUpdate: DeliveryNoteUpdate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<DeliveryNote>>;
+    public updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut(deliveryNoteId: number, deliveryNoteUpdate: DeliveryNoteUpdate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<DeliveryNote>>;
+    public updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut(deliveryNoteId: number, deliveryNoteUpdate: DeliveryNoteUpdate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (deliveryNoteId === null || deliveryNoteId === undefined) {
+            throw new Error('Required parameter deliveryNoteId was null or undefined when calling updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut.');
+        }
+        if (deliveryNoteUpdate === null || deliveryNoteUpdate === undefined) {
+            throw new Error('Required parameter deliveryNoteUpdate was null or undefined when calling updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.put<DeliveryNote>(`${this.configuration.basePath}/delivery_note/${encodeURIComponent(String(deliveryNoteId))}`,
+            deliveryNoteUpdate,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Update Ingoing Invoice
      * @param ingoingInvoiceId 
      * @param ingoingInvoiceCreate 
@@ -12332,9 +13436,9 @@ export class DefaultService implements DefaultServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Job>;
-    public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Job>>;
-    public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Job>>;
+    public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<JobStatusType>;
+    public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<JobStatusType>>;
+    public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<JobStatusType>>;
     public updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (jobId === null || jobId === undefined) {
             throw new Error('Required parameter jobId was null or undefined when calling updateJobStatusJobStatusJobIdPost.');
@@ -12376,7 +13480,7 @@ export class DefaultService implements DefaultServiceInterface {
             responseType_ = 'text';
         }
 
-        return this.httpClient.post<Job>(`${this.configuration.basePath}/job/status/${encodeURIComponent(String(jobId))}`,
+        return this.httpClient.post<JobStatusType>(`${this.configuration.basePath}/job/status/${encodeURIComponent(String(jobId))}`,
             null,
             {
                 params: queryParameters,
@@ -13493,6 +14597,72 @@ export class DefaultService implements DefaultServiceInterface {
 
         return this.httpClient.put<Vat>(`${this.configuration.basePath}/vat/${encodeURIComponent(String(vatId))}`,
             vatCreate,
+            {
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update Work Day
+     * @param workDayId 
+     * @param workDayUpdate 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WorkDay>;
+    public updateWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WorkDay>>;
+    public updateWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WorkDay>>;
+    public updateWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (workDayId === null || workDayId === undefined) {
+            throw new Error('Required parameter workDayId was null or undefined when calling updateWorkDayWorkDayWorkDayIdPut.');
+        }
+        if (workDayUpdate === null || workDayUpdate === undefined) {
+            throw new Error('Required parameter workDayUpdate was null or undefined when calling updateWorkDayWorkDayWorkDayIdPut.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let credential: string | undefined;
+        // authentication (OAuth2PasswordBearer) required
+        credential = this.configuration.lookupCredential('OAuth2PasswordBearer');
+        if (credential) {
+            headers = headers.set('Authorization', 'Bearer ' + credential);
+        }
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.put<WorkDay>(`${this.configuration.basePath}/work_day/${encodeURIComponent(String(workDayId))}`,
+            workDayUpdate,
             {
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
