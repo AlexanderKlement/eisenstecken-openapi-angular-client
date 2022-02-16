@@ -20,6 +20,7 @@ export interface ClientCreate {
     mail2: string;
     tel1: string;
     tel2: string;
+    contact_person: string;
     vat_number: string;
     fiscal_code: string;
     codice_destinatario: string;
@@ -28,8 +29,8 @@ export interface ClientCreate {
     publica_amministrazione: boolean;
     cup: string;
     cig: string;
-    address: AddressCreate;
     gender_code: string;
     language_code: string;
+    address: AddressCreate;
 }
 

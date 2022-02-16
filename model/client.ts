@@ -24,6 +24,7 @@ export interface Client {
     mail2: string;
     tel1: string;
     tel2: string;
+    contact_person: string;
     vat_number: string;
     fiscal_code: string;
     codice_destinatario: string;
@@ -32,9 +33,9 @@ export interface Client {
     publica_amministrazione: boolean;
     cup: string;
     cig: string;
-    address: Address;
     id: number;
     gender?: Gender;
+    address: Address;
     language: Language;
     fullname?: string;
 }

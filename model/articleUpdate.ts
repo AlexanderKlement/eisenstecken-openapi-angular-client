@@ -20,5 +20,6 @@ export interface ArticleUpdate {
     description_de: string;
     description_it: string;
     vat_id: number;
+    favorite?: boolean;
 }
 

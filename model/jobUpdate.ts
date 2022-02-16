@@ -16,5 +16,6 @@ export interface JobUpdate {
     description: string;
     name: string;
     address: AddressCreate;
+    responsible_id: number;
 }
 

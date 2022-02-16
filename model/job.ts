@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 import { JobStatus } from './jobStatus';
+import { UserEssential } from './userEssential';
 import { Address } from './address';
 import { OrderableType } from './orderableType';
 import { Client } from './client';
-import { Recalculation } from './recalculation';
 import { Lock } from './lock';
-import { Workload } from './workload';
 
 
 export interface Job { 
@@ -37,7 +36,6 @@ export interface Job {
     is_main: boolean;
     is_sub: boolean;
     is_mini: boolean;
-    workload?: Array<Workload>;
-    recalculation?: Recalculation;
+    responsible: UserEssential;
 }
 

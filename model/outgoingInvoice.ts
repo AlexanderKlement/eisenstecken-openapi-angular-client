@@ -25,10 +25,15 @@ export interface OutgoingInvoice {
     id: number;
     timestamp: string;
     pdf?: string;
-    payment?: Payment;
+    payments: Array<Payment>;
     descriptive_articles: Array<DescriptiveArticle>;
     reminders: Array<Reminder>;
     vat: Vat;
     job_id: number;
+    full_price_without_vat: number;
+    full_vat_amount: number;
+    full_price_with_vat: number;
+    client_name: string;
+    paid: boolean;
 }
 

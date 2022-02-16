@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { Vat } from './vat';
+import { Unit } from './unit';
 
 
 export interface DescriptiveArticle { 
@@ -22,6 +23,7 @@ export interface DescriptiveArticle {
     id: number;
     descriptive_article?: Array<DescriptiveArticle>;
     vat: Vat;
+    unit: Unit;
     price_with_vat?: number;
     price_without_vat?: number;
     vat_amount?: number;

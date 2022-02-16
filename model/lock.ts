@@ -17,8 +17,6 @@ export interface Lock {
     id: number;
     user: UserEssential;
     timestamp: string;
-    max_lock_time_minutes: number;
-    reminder_time_minutes: number;
     locked: boolean;
 }
 

@@ -19,6 +19,9 @@ export interface IngoingInvoice {
     number: string;
     name: string;
     date: string;
+    total: number;
+    iva: string;
+    cf: string;
     id: number;
     timestamp: string;
     payment?: Payment;

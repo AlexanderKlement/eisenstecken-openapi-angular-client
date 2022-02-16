@@ -28,7 +28,9 @@ export interface Order {
     pdf?: string;
     articles: Array<OrderedArticle>;
     status: OrderStatusType;
+    status_translation: string;
     order_bundle?: OrderBundle;
     user: UserEssential;
+    create_date_formatted: string;
 }
 

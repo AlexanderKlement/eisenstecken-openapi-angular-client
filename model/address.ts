@@ -19,8 +19,8 @@ export interface Address {
     cap: string;
     id: number;
     country: Country;
-    address_1?: string;
-    address_2?: string;
-    country_name?: string;
+    address_1: string;
+    address_2: string;
+    country_name: string;
 }
 

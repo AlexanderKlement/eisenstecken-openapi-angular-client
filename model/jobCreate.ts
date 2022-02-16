@@ -19,5 +19,6 @@ export interface JobCreate {
     client_id: number;
     address: AddressCreate;
     type: JobTypeType;
+    responsible_id: number;
 }
 

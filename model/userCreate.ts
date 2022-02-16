@@ -22,5 +22,8 @@ export interface UserCreate {
     dial: string;
     employee: boolean;
     office: boolean;
+    hours: boolean;
+    chat: boolean;
+    position: string;
 }
 

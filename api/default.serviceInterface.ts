@@ -13,6 +13,7 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { AdditionalWorkload } from '../model/models';
 import { Article } from '../model/models';
 import { ArticleCreate } from '../model/models';
 import { ArticleUpdate } from '../model/models';
@@ -28,6 +29,7 @@ import { ChatMessageCreate } from '../model/models';
 import { ChatRecipient } from '../model/models';
 import { Client } from '../model/models';
 import { ClientCreate } from '../model/models';
+import { ClientValidation } from '../model/models';
 import { Contact } from '../model/models';
 import { ContactCreate } from '../model/models';
 import { ContactUpdate } from '../model/models';
@@ -37,11 +39,16 @@ import { CredentialCreate } from '../model/models';
 import { CredentialUpdate } from '../model/models';
 import { DeliveryNote } from '../model/models';
 import { DeliveryNoteCreate } from '../model/models';
+import { DeliveryNoteReason } from '../model/models';
 import { DeliveryNoteUpdate } from '../model/models';
 import { EatingPlace } from '../model/models';
+import { Expense } from '../model/models';
 import { Fee } from '../model/models';
 import { Gender } from '../model/models';
 import { HTTPValidationError } from '../model/models';
+import { InfoPage } from '../model/models';
+import { InfoPageCreate } from '../model/models';
+import { InfoPageUpdate } from '../model/models';
 import { IngoingInvoice } from '../model/models';
 import { IngoingInvoiceCreate } from '../model/models';
 import { Job } from '../model/models';
@@ -52,10 +59,14 @@ import { JobUpdate } from '../model/models';
 import { Journey } from '../model/models';
 import { Language } from '../model/models';
 import { Lock } from '../model/models';
+import { Maintenance } from '../model/models';
+import { MaintenanceCreate } from '../model/models';
+import { MaintenanceUpdate } from '../model/models';
 import { Meal } from '../model/models';
 import { MealSum } from '../model/models';
 import { Note } from '../model/models';
 import { NoteCreate } from '../model/models';
+import { NoteUpdate } from '../model/models';
 import { Offer } from '../model/models';
 import { OfferCreate } from '../model/models';
 import { OfferUpdate } from '../model/models';
@@ -71,6 +82,7 @@ import { OrderedArticlePriceUpdate } from '../model/models';
 import { OutgoingInvoice } from '../model/models';
 import { OutgoingInvoiceCreate } from '../model/models';
 import { OutgoingInvoiceUpdate } from '../model/models';
+import { Paint } from '../model/models';
 import { Parameter } from '../model/models';
 import { ParameterCreate } from '../model/models';
 import { PaymentCreate } from '../model/models';
@@ -82,14 +94,22 @@ import { RecalculationCreate } from '../model/models';
 import { RecalculationUpdate } from '../model/models';
 import { ReminderCreate } from '../model/models';
 import { Right } from '../model/models';
+import { Service } from '../model/models';
+import { ServiceCreate } from '../model/models';
+import { ServiceSum } from '../model/models';
+import { ServiceUpdate } from '../model/models';
 import { Stock } from '../model/models';
 import { StockCreate } from '../model/models';
+import { StockUpdate } from '../model/models';
 import { SubJobCreate } from '../model/models';
 import { Supplier } from '../model/models';
 import { SupplierCreate } from '../model/models';
 import { TechnicalData } from '../model/models';
 import { TechnicalDataCreate } from '../model/models';
 import { TechnicalDataUpdate } from '../model/models';
+import { TemplatePaint } from '../model/models';
+import { TemplatePaintCreate } from '../model/models';
+import { TemplatePaintUpdate } from '../model/models';
 import { Token } from '../model/models';
 import { Unit } from '../model/models';
 import { UnitCreate } from '../model/models';
@@ -99,6 +119,7 @@ import { UserPassword } from '../model/models';
 import { UserUpdate } from '../model/models';
 import { Vat } from '../model/models';
 import { VatCreate } from '../model/models';
+import { WoodList } from '../model/models';
 import { WorkDay } from '../model/models';
 import { WorkDayAction } from '../model/models';
 import { WorkDayCreate } from '../model/models';
@@ -107,6 +128,9 @@ import { WorkDayStart } from '../model/models';
 import { WorkDayStop } from '../model/models';
 import { WorkDayUpdate } from '../model/models';
 import { Workload } from '../model/models';
+import { WorkloadCreate } from '../model/models';
+import { WorkloadUpdate } from '../model/models';
+import { XmlFile } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
@@ -172,15 +196,9 @@ export interface DefaultServiceInterface {
     /**
      * Count Ingoing Invoices
      * 
+     * @param paid 
      */
-    countIngoingInvoicesIngoingInvoiceCountGet(extraHttpRequestParams?: any): Observable<number>;
-
-    /**
-     * Count Ingoing Invoices
-     * 
-     * @param supplierId 
-     */
-    countIngoingInvoicesIngoingInvoiceSupplierSupplierIdCountGet(supplierId: number, extraHttpRequestParams?: any): Observable<number>;
+    countIngoingInvoicesIngoingInvoiceCountGet(paid?: boolean, extraHttpRequestParams?: any): Observable<number>;
 
     /**
      * Count Offers By Job
@@ -199,8 +217,9 @@ export interface DefaultServiceInterface {
     /**
      * Count Outgoing Invoices
      * 
+     * @param paid 
      */
-    countOutgoingInvoicesOutgoingInvoiceCountGet(extraHttpRequestParams?: any): Observable<number>;
+    countOutgoingInvoicesOutgoingInvoiceCountGet(paid?: boolean, extraHttpRequestParams?: any): Observable<number>;
 
     /**
      * Create Article
@@ -256,10 +275,16 @@ export interface DefaultServiceInterface {
     /**
      * Create Delivery Note
      * 
-     * @param userId 
      * @param deliveryNoteCreate 
      */
-    createDeliveryNoteDeliveryNotePost(userId: number, deliveryNoteCreate: DeliveryNoteCreate, extraHttpRequestParams?: any): Observable<DeliveryNote>;
+    createDeliveryNoteDeliveryNotePost(deliveryNoteCreate: DeliveryNoteCreate, extraHttpRequestParams?: any): Observable<DeliveryNote>;
+
+    /**
+     * Create Info Page
+     * 
+     * @param infoPageCreate 
+     */
+    createInfoPageInfoPagePost(infoPageCreate: InfoPageCreate, extraHttpRequestParams?: any): Observable<InfoPage>;
 
     /**
      * Create Ingoing Invoice
@@ -274,6 +299,13 @@ export interface DefaultServiceInterface {
      * @param jobCreate 
      */
     createJobJobPost(jobCreate: JobCreate, extraHttpRequestParams?: any): Observable<Job>;
+
+    /**
+     * Create Maintenance
+     * 
+     * @param maintenanceCreate 
+     */
+    createMaintenanceMaintenancePost(maintenanceCreate: MaintenanceCreate, extraHttpRequestParams?: any): Observable<Maintenance>;
 
     /**
      * Create Note Entry
@@ -335,9 +367,10 @@ export interface DefaultServiceInterface {
     /**
      * Create Recalculation
      * 
+     * @param jobId 
      * @param recalculationCreate 
      */
-    createRecalculationRecalculationPost(recalculationCreate: RecalculationCreate, extraHttpRequestParams?: any): Observable<Recalculation>;
+    createRecalculationRecalculationJobIdPost(jobId: number, recalculationCreate: RecalculationCreate, extraHttpRequestParams?: any): Observable<Recalculation>;
 
     /**
      * Create Reminder
@@ -353,6 +386,13 @@ export interface DefaultServiceInterface {
      * @param outgoingInvoiceId 
      */
     createReminderOutgoingInvoiceReminderOutgoingInvoiceIdRemovePost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Create Service
+     * 
+     * @param serviceCreate 
+     */
+    createServiceServicePost(serviceCreate: ServiceCreate, extraHttpRequestParams?: any): Observable<Service>;
 
     /**
      * Create Stock
@@ -374,6 +414,13 @@ export interface DefaultServiceInterface {
      * @param technicalDataCreate 
      */
     createTechnicalDataTechnicalDataPost(technicalDataCreate: TechnicalDataCreate, extraHttpRequestParams?: any): Observable<TechnicalData>;
+
+    /**
+     * Create Template Paint
+     * 
+     * @param templatePaintCreate 
+     */
+    createTemplatePaintTemplatePaintPost(templatePaintCreate: TemplatePaintCreate, extraHttpRequestParams?: any): Observable<TemplatePaint>;
 
     /**
      * Create Unit
@@ -405,6 +452,20 @@ export interface DefaultServiceInterface {
     createWorkDayWorkDayUserIdPost(userId: number, workDayCreate: WorkDayCreate, extraHttpRequestParams?: any): Observable<WorkDay>;
 
     /**
+     * Create Workload
+     * 
+     * @param workloadCreate 
+     */
+    createWorkloadWorkloadPost(workloadCreate: WorkloadCreate, extraHttpRequestParams?: any): Observable<Workload>;
+
+    /**
+     * Delete Additional Workload
+     * 
+     * @param additionalWorkloadId 
+     */
+    deleteAdditionalWorkloadAdditionalWorkloadAdditionalWorkloadIdDelete(additionalWorkloadId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Delete Article
      * 
      * @param articleId 
@@ -430,7 +491,28 @@ export interface DefaultServiceInterface {
      * 
      * @param clientId 
      */
-    deleteClientClientClientIdDelete(clientId: number, extraHttpRequestParams?: any): Observable<Client>;
+    deleteClientClientClientIdDelete(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Delete Delivery Note
+     * 
+     * @param deliveryNoteId 
+     */
+    deleteDeliveryNoteDeliveryNoteDeliveryNoteIdDelete(deliveryNoteId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Delete Fee
+     * 
+     * @param feeId 
+     */
+    deleteFeeFeeFeeIdDelete(feeId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Delete Info Page
+     * 
+     * @param id 
+     */
+    deleteInfoPageInfoPageIdDelete(id: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Delete Ingoing Invoice
@@ -445,6 +527,20 @@ export interface DefaultServiceInterface {
      * @param jobId 
      */
     deleteJobJobJobIdDelete(jobId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Delete Journey
+     * 
+     * @param journeyId 
+     */
+    deleteJourneyJourneyJourneyIdDelete(journeyId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Delete Meal
+     * 
+     * @param mealId 
+     */
+    deleteMealMealMealIdDelete(mealId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Delete Note Entry
@@ -475,11 +571,11 @@ export interface DefaultServiceInterface {
     deleteOrderOrderOrderIdDelete(orderId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
-     * Delete Orderer Article
+     * Delete Ordered Article
      * 
      * @param orderedArticleId 
      */
-    deleteOrdererArticleOrderOrderedArticleOrderedArticleIdDelete(orderedArticleId: number, extraHttpRequestParams?: any): Observable<boolean>;
+    deleteOrderedArticleOrderedArticleOrderedArticleIdDelete(orderedArticleId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Delete Outgoing Invoice
@@ -496,6 +592,13 @@ export interface DefaultServiceInterface {
     deleteRecalculationRecalculationRecalculationIdDelete(recalculationId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Delete Service
+     * 
+     * @param serviceId 
+     */
+    deleteServiceServiceServiceIdDelete(serviceId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
      * Delete Stock
      * 
      * @param stockId 
@@ -508,6 +611,13 @@ export interface DefaultServiceInterface {
      * @param supplierId 
      */
     deleteSupplierSupplierSupplierIdDelete(supplierId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Delete Template Paint
+     * 
+     * @param templatePaintId 
+     */
+    deleteTemplatePaintTemplatePaintTemplatePaintIdDelete(templatePaintId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Delete Unit
@@ -546,6 +656,13 @@ export interface DefaultServiceInterface {
     finishWorkDayWorkDayFinishPost(workDayFinish: WorkDayFinish, extraHttpRequestParams?: any): Observable<WorkDay>;
 
     /**
+     * Generate Order Pdf
+     * 
+     * @param requestBody 
+     */
+    generateOrderPdfOrderPdfPost(requestBody: Array<number>, extraHttpRequestParams?: any): Observable<string>;
+
+    /**
      * Get Available Work Day Actions By User
      * 
      * @param userId 
@@ -575,6 +692,13 @@ export interface DefaultServiceInterface {
     getCarsCarGet(skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Car>>;
 
     /**
+     * Get Client Validation
+     * 
+     * @param clientId 
+     */
+    getClientValidationClientValidationClientIdGet(clientId: number, extraHttpRequestParams?: any): Observable<ClientValidation>;
+
+    /**
      * Get Current Work Day By User
      * 
      * @param userId 
@@ -601,12 +725,11 @@ export interface DefaultServiceInterface {
     getCurrentWorkDayWorkDayCurrentGet(extraHttpRequestParams?: any): Observable<WorkDay>;
 
     /**
-     * Get Delivery Notes
+     * Get Eating Places
      * 
-     * @param skip 
-     * @param limit 
+     * @param eatingPlaceId 
      */
-    getDeliveryNotesDeliveryNoteGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<DeliveryNote>>;
+    getEatingPlacesEatingPlaceEatingPlaceIdGet(eatingPlaceId: number, extraHttpRequestParams?: any): Observable<EatingPlace>;
 
     /**
      * Get Eating Places
@@ -658,13 +781,20 @@ export interface DefaultServiceInterface {
     getStatusOptionsJobStatusOptionsGet(extraHttpRequestParams?: any): Observable<Array<JobStatus>>;
 
     /**
+     * Get Work Day
+     * 
+     * @param workDayId 
+     */
+    getWorkDayWorkDayWorkDayIdGet(workDayId: number, extraHttpRequestParams?: any): Observable<WorkDay>;
+
+    /**
      * Get Work Days By User
      * 
      * @param userId 
      * @param skip 
      * @param limit 
      */
-    getWorkDaysByUserWorkDayUserIdGet(userId: number, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<WorkDay>>;
+    getWorkDaysByUserWorkDayUserUserIdGet(userId: number, skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<WorkDay>>;
 
     /**
      * Grant Rights To User
@@ -675,11 +805,25 @@ export interface DefaultServiceInterface {
     grantRightsToUserUsersRightsUserIdPost(userId: number, requestBody: Array<string>, extraHttpRequestParams?: any): Observable<User>;
 
     /**
+     * Initialize
+     * 
+     * @param key 
+     */
+    initializeInitKeyGet(key: string, extraHttpRequestParams?: any): Observable<any>;
+
+    /**
      * Islocked Client
      * 
      * @param clientId 
      */
     islockedClientClientIslockedClientIdGet(clientId: number, extraHttpRequestParams?: any): Observable<Lock>;
+
+    /**
+     * Islocked Delivery Note
+     * 
+     * @param deliveryNoteId 
+     */
+    islockedDeliveryNoteDeliveryNoteIslockedDeliveryNoteIdGet(deliveryNoteId: number, extraHttpRequestParams?: any): Observable<Lock>;
 
     /**
      * Islocked Ingoing Invoice
@@ -708,6 +852,13 @@ export interface DefaultServiceInterface {
      * @param orderBundleId 
      */
     islockedOrderBundleOrderBundleIslockedOrderBundleIdGet(orderBundleId: number, extraHttpRequestParams?: any): Observable<Lock>;
+
+    /**
+     * Islocked Order
+     * 
+     * @param orderId 
+     */
+    islockedOrderOrderIslockedOrderIdGet(orderId: number, extraHttpRequestParams?: any): Observable<Lock>;
 
     /**
      * Islocked Outgoing Invoice
@@ -764,6 +915,13 @@ export interface DefaultServiceInterface {
      * @param clientId 
      */
     lockClientClientLockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Lock Delivery Note
+     * 
+     * @param deliveryNoteId 
+     */
+    lockDeliveryNoteDeliveryNoteLockDeliveryNoteIdPost(deliveryNoteId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Lock Ingoing Invoice
@@ -870,16 +1028,34 @@ export interface DefaultServiceInterface {
     loggedInTokenValidationGet(extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Login For Access Token Simple
+     * 
+     * @param username 
+     * @param password 
+     */
+    loginForAccessTokenSimpleTokenSimplePost(username: string, password: string, extraHttpRequestParams?: any): Observable<Token>;
+
+    /**
      * Login For Access Token
      * 
      * @param username 
      * @param password 
+     * @param allScopes 
      * @param grantType 
      * @param scope 
      * @param clientId 
      * @param clientSecret 
      */
-    loginForAccessTokenTokenPost(username: string, password: string, grantType?: string, scope?: string, clientId?: string, clientSecret?: string, extraHttpRequestParams?: any): Observable<Token>;
+    loginForAccessTokenTokenPost(username: string, password: string, allScopes?: boolean, grantType?: string, scope?: string, clientId?: string, clientSecret?: string, extraHttpRequestParams?: any): Observable<Token>;
+
+    /**
+     * Move Ordered Articles
+     * 
+     * @param oldOrderId 
+     * @param newOrderableToId 
+     * @param requestBody 
+     */
+    moveOrderedArticlesOrderMoveOldOrderIdNewOrderableToIdPost(oldOrderId: number, newOrderableToId: number, requestBody: Array<number>, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Patch Article
@@ -888,6 +1064,34 @@ export interface DefaultServiceInterface {
      * @param articleUpdate 
      */
     patchArticleArticleArticleIdPatch(articleId: number, articleUpdate: ArticleUpdate, extraHttpRequestParams?: any): Observable<Article>;
+
+    /**
+     * Patch Path
+     * 
+     * @param jobId 
+     * @param path 
+     */
+    patchPathJobPathJobIdPut(jobId: number, path: string, extraHttpRequestParams?: any): Observable<Job>;
+
+    /**
+     * Pay
+     * 
+     * @param ingoingInvoiceId 
+     */
+    payIngoingInvoicePaymentIngoingInvoiceIdPayPost(ingoingInvoiceId: number, extraHttpRequestParams?: any): Observable<IngoingInvoice>;
+
+    /**
+     * Pay
+     * 
+     * @param outgoingInvoiceId 
+     */
+    payOutgoingInvoicePaymentOutgoingInvoiceIdPayPost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
+     * Pdf Gen Delivery Note Test
+     * 
+     */
+    pdfGenDeliveryNoteTestPdfDeliveryDocketGet(extraHttpRequestParams?: any): Observable<any>;
 
     /**
      * Pdf Gen Invoice Test
@@ -902,6 +1106,56 @@ export interface DefaultServiceInterface {
     pdfGenOfferTestPdfOfferGet(extraHttpRequestParams?: any): Observable<any>;
 
     /**
+     * Pdf Gen Order Test
+     * 
+     */
+    pdfGenOrderTestPdfOrderGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
+     * Pdf Gen Recalculation Test
+     * 
+     */
+    pdfGenRecalculationTestPdfRecalculationGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
+     * Read Additional Workload Count
+     * 
+     * @param userId 
+     */
+    readAdditionalWorkloadCountAdditionalWorkloadCountGet(userId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Additional Workloads
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     */
+    readAdditionalWorkloadsAdditionalWorkloadGet(skip?: number, limit?: number, filterString?: string, userId?: number, extraHttpRequestParams?: any): Observable<Array<AdditionalWorkload>>;
+
+    /**
+     * Read Article
+     * 
+     * @param articleId 
+     */
+    readArticleArticleArticleIdGet(articleId: number, extraHttpRequestParams?: any): Observable<Article>;
+
+    /**
+     * Read Article Count By Stock
+     * 
+     * @param stockId 
+     */
+    readArticleCountByStockArticleStockCountStockIdGet(stockId: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Article Count By Supplier
+     * 
+     * @param supplierId 
+     */
+    readArticleCountBySupplierArticleSupplierCountSupplierIdGet(supplierId: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
      * Read Articles
      * 
      * @param skip 
@@ -913,22 +1167,21 @@ export interface DefaultServiceInterface {
      * Read Articles By Stock
      * 
      * @param stockId 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
      */
-    readArticlesByStockArticleStockStockIdGet(stockId: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
+    readArticlesByStockArticleStockStockIdGet(stockId: number, skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Article>>;
 
     /**
      * Read Articles By Supplier
      * 
      * @param supplierId 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
      */
-    readArticlesBySupplierArticleSupplierSupplierIdGet(supplierId: number, extraHttpRequestParams?: any): Observable<Array<Article>>;
-
-    /**
-     * Read Calculation By Job
-     * 
-     * @param jobId 
-     */
-    readCalculationByJobRecalculationJobJobIdGet(jobId: number, extraHttpRequestParams?: any): Observable<Recalculation>;
+    readArticlesBySupplierArticleSupplierSupplierIdGet(supplierId: number, skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Article>>;
 
     /**
      * Read Calendar Entries By Day
@@ -1007,8 +1260,10 @@ export interface DefaultServiceInterface {
      * @param skip 
      * @param limit 
      * @param filter 
+     * @param privateOnly 
+     * @param companyOnly 
      */
-    readClientsClientGet(skip?: number, limit?: number, filter?: string, extraHttpRequestParams?: any): Observable<Array<Client>>;
+    readClientsClientGet(skip?: number, limit?: number, filter?: string, privateOnly?: boolean, companyOnly?: boolean, extraHttpRequestParams?: any): Observable<Array<Client>>;
 
     /**
      * Read Contact
@@ -1039,8 +1294,9 @@ export interface DefaultServiceInterface {
      * 
      * @param supplierId 
      * @param orderStatus 
+     * @param request 
      */
-    readCountOfOrderBundleBySupplierAndStatusOrderBundleSupplierSupplierIdCountGet(supplierId: number, orderStatus?: OrderStatusType, extraHttpRequestParams?: any): Observable<number>;
+    readCountOfOrderBundleBySupplierAndStatusOrderBundleSupplierSupplierIdCountGet(supplierId: number, orderStatus?: OrderStatusType, request?: boolean, extraHttpRequestParams?: any): Observable<number>;
 
     /**
      * Read Countries
@@ -1075,6 +1331,62 @@ export interface DefaultServiceInterface {
     readCredentialsCredentialGet(skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Credential>>;
 
     /**
+     * Read Delivery Note Count
+     * 
+     * @param jobId 
+     * @param userId 
+     */
+    readDeliveryNoteCountDeliveryNoteCountGet(jobId?: number, userId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Delivery Note
+     * 
+     * @param deliveryNoteId 
+     */
+    readDeliveryNoteDeliveryNoteDeliveryNoteIdGet(deliveryNoteId: number, extraHttpRequestParams?: any): Observable<DeliveryNote>;
+
+    /**
+     * Read Delivery Note Reason
+     * 
+     * @param deliveryNoteReasonId 
+     */
+    readDeliveryNoteReasonDeliveryNoteReasonDeliveryNoteReasonIdGet(deliveryNoteReasonId: number, extraHttpRequestParams?: any): Observable<DeliveryNoteReason>;
+
+    /**
+     * Read Delivery Note Reasons
+     * 
+     */
+    readDeliveryNoteReasonsDeliveryNoteReasonsGet(extraHttpRequestParams?: any): Observable<Array<DeliveryNoteReason>>;
+
+    /**
+     * Read Delivery Notes
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param jobId 
+     * @param userId 
+     */
+    readDeliveryNotesDeliveryNoteGet(skip?: number, limit?: number, filterString?: string, jobId?: number, userId?: number, extraHttpRequestParams?: any): Observable<Array<DeliveryNote>>;
+
+    /**
+     * Read Expense Count
+     * 
+     * @param recalculationId 
+     */
+    readExpenseCountExpenseCountGet(recalculationId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Expenses
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param recalculationId 
+     */
+    readExpensesExpenseGet(skip?: number, limit?: number, filterString?: string, recalculationId?: number, extraHttpRequestParams?: any): Observable<Array<Expense>>;
+
+    /**
      * Read Fee Count
      * 
      * @param userId 
@@ -1100,23 +1412,29 @@ export interface DefaultServiceInterface {
     readGendersGenderGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Gender>>;
 
     /**
-     * Read Ingoing Invoices
+     * Read Info Page
+     * 
+     * @param id 
+     */
+    readInfoPageInfoPageIdGet(id: number, extraHttpRequestParams?: any): Observable<InfoPage>;
+
+    /**
+     * Read Info Pages
      * 
      * @param skip 
      * @param limit 
-     * @param filter 
      */
-    readIngoingInvoicesIngoingInvoiceGet(skip?: number, limit?: number, filter?: string, extraHttpRequestParams?: any): Observable<Array<IngoingInvoice>>;
+    readInfoPagesInfoPageGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<InfoPage>>;
 
     /**
      * Read Ingoing Invoices
      * 
-     * @param supplierId 
      * @param skip 
      * @param limit 
      * @param filter 
+     * @param paid 
      */
-    readIngoingInvoicesIngoingInvoiceSupplierSupplierIdGet(supplierId: number, skip?: number, limit?: number, filter?: string, extraHttpRequestParams?: any): Observable<Array<IngoingInvoice>>;
+    readIngoingInvoicesIngoingInvoiceGet(skip?: number, limit?: number, filter?: string, paid?: boolean, extraHttpRequestParams?: any): Observable<Array<IngoingInvoice>>;
 
     /**
      * Read Job Count
@@ -1148,10 +1466,10 @@ export interface DefaultServiceInterface {
      * @param limit 
      * @param filterString 
      * @param clientId 
-     * @param status 
+     * @param statuses 
      * @param excludeSubjobs 
      */
-    readJobsJobGet(skip?: number, limit?: number, filterString?: string, clientId?: number, status?: JobStatusType, excludeSubjobs?: boolean, extraHttpRequestParams?: any): Observable<Array<Job>>;
+    readJobsJobGet(skip?: number, limit?: number, filterString?: string, clientId?: number, statuses?: string, excludeSubjobs?: boolean, extraHttpRequestParams?: any): Observable<Array<Job>>;
 
     /**
      * Read Journey Count
@@ -1179,11 +1497,36 @@ export interface DefaultServiceInterface {
     readLanguagesLanguageGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Language>>;
 
     /**
-     * Read Meal Count
+     * Read Maintenance Count
      * 
      * @param userId 
      */
-    readMealCountMealCountGet(userId?: number, extraHttpRequestParams?: any): Observable<number>;
+    readMaintenanceCountMaintenanceCountGet(userId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Maintenance
+     * 
+     * @param maintenanceId 
+     */
+    readMaintenanceMaintenanceMaintenanceIdGet(maintenanceId: number, extraHttpRequestParams?: any): Observable<Array<Maintenance>>;
+
+    /**
+     * Read Maintenances
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     */
+    readMaintenancesMaintenanceGet(skip?: number, limit?: number, filterString?: string, userId?: number, extraHttpRequestParams?: any): Observable<Array<Maintenance>>;
+
+    /**
+     * Read Meal Count
+     * 
+     * @param userId 
+     * @param eatingPlaceId 
+     */
+    readMealCountMealCountGet(userId?: number, eatingPlaceId?: number, extraHttpRequestParams?: any): Observable<number>;
 
     /**
      * Read Meal Sums
@@ -1207,8 +1550,9 @@ export interface DefaultServiceInterface {
      * @param limit 
      * @param filterString 
      * @param userId 
+     * @param eatingPlaceId 
      */
-    readMealsMealGet(skip?: number, limit?: number, filterString?: string, userId?: number, extraHttpRequestParams?: any): Observable<Array<Meal>>;
+    readMealsMealGet(skip?: number, limit?: number, filterString?: string, userId?: number, eatingPlaceId?: number, extraHttpRequestParams?: any): Observable<Array<Meal>>;
 
     /**
      * Read Note Entries
@@ -1251,8 +1595,9 @@ export interface DefaultServiceInterface {
      * @param limit 
      * @param filterString 
      * @param orderStatus 
+     * @param request 
      */
-    readOrderBundleBySupplierOrderBundleSupplierSupplierIdGet(supplierId: number, skip?: number, limit?: number, filterString?: string, orderStatus?: OrderStatusType, extraHttpRequestParams?: any): Observable<Array<OrderBundle>>;
+    readOrderBundleBySupplierOrderBundleSupplierSupplierIdGet(supplierId: number, skip?: number, limit?: number, filterString?: string, orderStatus?: OrderStatusType, request?: boolean, extraHttpRequestParams?: any): Observable<Array<OrderBundle>>;
 
     /**
      * Read Order Bundle
@@ -1278,6 +1623,13 @@ export interface DefaultServiceInterface {
     readOrderFromToOrderFromOrderableFromIdToOrderableToIdGet(orderableFromId: number, orderableToId: number, extraHttpRequestParams?: any): Observable<Order>;
 
     /**
+     * Read Order
+     * 
+     * @param orderId 
+     */
+    readOrderOrderOrderIdGet(orderId: number, extraHttpRequestParams?: any): Observable<Order>;
+
+    /**
      * Read Ordered Article Count By Job
      * 
      * @param jobId 
@@ -1290,6 +1642,13 @@ export interface DefaultServiceInterface {
      * @param orderId 
      */
     readOrderedArticleCountByOrderOrderedArticleOrderOrderIdCountGet(orderId: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Ordered Article
+     * 
+     * @param orderedArticleId 
+     */
+    readOrderedArticleOrderedArticleOrderedArticleIdGet(orderedArticleId: number, extraHttpRequestParams?: any): Observable<OrderedArticle>;
 
     /**
      * Read Ordered Articles By Job
@@ -1308,8 +1667,9 @@ export interface DefaultServiceInterface {
      * @param skip 
      * @param limit 
      * @param filterString 
+     * @param sortPosition 
      */
-    readOrderedArticlesByOrderOrderedArticleOrderOrderIdGet(orderId: number, skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<OrderedArticle>>;
+    readOrderedArticlesByOrderOrderedArticleOrderOrderIdGet(orderId: number, skip?: number, limit?: number, filterString?: string, sortPosition?: boolean, extraHttpRequestParams?: any): Observable<Array<OrderedArticle>>;
 
     /**
      * Read Orders By Order Bundle
@@ -1327,6 +1687,14 @@ export interface DefaultServiceInterface {
      * @param filterString 
      */
     readOrdersByOrderBundleOrderBundleOrdersOrderBundleIdGet(orderBundleId: number, skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Order>>;
+
+    /**
+     * Read Orders From Count
+     * 
+     * @param orderableFromId 
+     * @param status 
+     */
+    readOrdersFromCountOrderFromOrderableFromIdCountGet(orderableFromId: number, status?: OrderStatusType, extraHttpRequestParams?: any): Observable<number>;
 
     /**
      * Read Orders From
@@ -1349,22 +1717,16 @@ export interface DefaultServiceInterface {
     readOrdersOrderGet(skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Order>>;
 
     /**
-     * Read Orders
-     * 
-     * @param orderId 
-     */
-    readOrdersOrderOrderIdGet(orderId: number, extraHttpRequestParams?: any): Observable<Order>;
-
-    /**
-     * Read Orders
+     * Read Orders Supplier
      * 
      * @param supplierId 
      * @param skip 
      * @param limit 
      * @param filterString 
      * @param orderStatus 
+     * @param request 
      */
-    readOrdersOrderSupplierSupplierIdGet(supplierId: number, skip?: number, limit?: number, filterString?: string, orderStatus?: OrderStatusType, extraHttpRequestParams?: any): Observable<Array<Order>>;
+    readOrdersSupplierOrderSupplierSupplierIdGet(supplierId: number, skip?: number, limit?: number, filterString?: string, orderStatus?: OrderStatusType, request?: boolean, extraHttpRequestParams?: any): Observable<Array<Order>>;
 
     /**
      * Read Orders To Count
@@ -1410,8 +1772,26 @@ export interface DefaultServiceInterface {
      * @param skip 
      * @param filterString 
      * @param limit 
+     * @param paid 
      */
-    readOutgoingInvoicesOutgoingInvoiceGet(skip?: number, filterString?: string, limit?: number, extraHttpRequestParams?: any): Observable<Array<OutgoingInvoice>>;
+    readOutgoingInvoicesOutgoingInvoiceGet(skip?: number, filterString?: string, limit?: number, paid?: boolean, extraHttpRequestParams?: any): Observable<Array<OutgoingInvoice>>;
+
+    /**
+     * Read Paint Count
+     * 
+     * @param recalculationId 
+     */
+    readPaintCountPaintCountGet(recalculationId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Paints
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param recalculationId 
+     */
+    readPaintsPaintGet(skip?: number, limit?: number, filterString?: string, recalculationId?: number, extraHttpRequestParams?: any): Observable<Array<Paint>>;
 
     /**
      * Read Parameters
@@ -1446,31 +1826,70 @@ export interface DefaultServiceInterface {
     readPricesPriceGet(skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<Price>>;
 
     /**
-     * Read Recalculations Count
+     * Read Recalculation By Job
      * 
+     * @param jobId 
      */
-    readRecalculationsCountRecalculationCountGet(extraHttpRequestParams?: any): Observable<number>;
+    readRecalculationByJobRecalculationJobJobIdGet(jobId: number, extraHttpRequestParams?: any): Observable<Recalculation>;
 
     /**
-     * Read Recalculations
-     * 
-     * @param skip 
-     * @param limit 
-     */
-    readRecalculationsRecalculationGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Recalculation>>;
-
-    /**
-     * Read Recalculations
+     * Read Recalculation
      * 
      * @param recalculationId 
      */
-    readRecalculationsRecalculationRecalculationIdGet(recalculationId: number, extraHttpRequestParams?: any): Observable<Recalculation>;
+    readRecalculationRecalculationRecalculationIdGet(recalculationId: number, extraHttpRequestParams?: any): Observable<Recalculation>;
+
+    /**
+     * Read Service Count
+     * 
+     * @param userId 
+     */
+    readServiceCountServiceCountGet(userId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Service
+     * 
+     * @param serviceId 
+     */
+    readServiceServiceServiceIdGet(serviceId: number, extraHttpRequestParams?: any): Observable<Service>;
+
+    /**
+     * Read Service Sum Count
+     * 
+     */
+    readServiceSumCountServiceSumCountGet(extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Service Sums
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     */
+    readServiceSumsServiceSumGet(skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<ServiceSum>>;
+
+    /**
+     * Read Services
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param userId 
+     */
+    readServicesServiceGet(skip?: number, limit?: number, filterString?: string, userId?: number, extraHttpRequestParams?: any): Observable<Array<Service>>;
 
     /**
      * Read Stock Count
      * 
      */
     readStockCountStockCountGet(extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Stock
+     * 
+     * @param stockId 
+     */
+    readStockStockStockIdGet(stockId: number, extraHttpRequestParams?: any): Observable<Stock>;
 
     /**
      * Read Stocks
@@ -1520,8 +1939,9 @@ export interface DefaultServiceInterface {
      * @param skip 
      * @param limit 
      * @param filterString 
+     * @param favoritesFirst 
      */
-    readSuppliersSupplierGet(skip?: number, limit?: number, filterString?: any, extraHttpRequestParams?: any): Observable<Array<Supplier>>;
+    readSuppliersSupplierGet(skip?: number, limit?: number, filterString?: any, favoritesFirst?: boolean, extraHttpRequestParams?: any): Observable<Array<Supplier>>;
 
     /**
      * Read Technical Data Count
@@ -1546,6 +1966,27 @@ export interface DefaultServiceInterface {
      * @param filterString 
      */
     readTechnicalDatasTechnicalDataGet(skip?: number, limit?: number, filterString?: string, extraHttpRequestParams?: any): Observable<Array<TechnicalData>>;
+
+    /**
+     * Read Template Paint Count
+     * 
+     */
+    readTemplatePaintCountTemplatePaintCountGet(extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Template Paint
+     * 
+     * @param templatePaintId 
+     */
+    readTemplatePaintTemplatePaintTemplatePaintIdGet(templatePaintId: number, extraHttpRequestParams?: any): Observable<TemplatePaint>;
+
+    /**
+     * Read Template Paints
+     * 
+     * @param skip 
+     * @param limit 
+     */
+    readTemplatePaintsTemplatePaintGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<TemplatePaint>>;
 
     /**
      * Read Units
@@ -1613,6 +2054,31 @@ export interface DefaultServiceInterface {
     readVatsVatGet(skip?: number, limit?: number, extraHttpRequestParams?: any): Observable<Array<Vat>>;
 
     /**
+     * Read Wood List Count
+     * 
+     * @param recalculationId 
+     */
+    readWoodListCountWoodListCountGet(recalculationId?: number, extraHttpRequestParams?: any): Observable<number>;
+
+    /**
+     * Read Wood Lists
+     * 
+     * @param skip 
+     * @param limit 
+     * @param filterString 
+     * @param recalculationId 
+     */
+    readWoodListsWoodListGet(skip?: number, limit?: number, filterString?: string, recalculationId?: number, extraHttpRequestParams?: any): Observable<Array<WoodList>>;
+
+    /**
+     * Read Workload By User And Job
+     * 
+     * @param userId 
+     * @param jobId 
+     */
+    readWorkloadByUserAndJobWorkloadUserJobUserIdJobIdGet(userId: number, jobId: number, extraHttpRequestParams?: any): Observable<Workload>;
+
+    /**
      * Read Workload Count
      * 
      * @param userId 
@@ -1630,6 +2096,13 @@ export interface DefaultServiceInterface {
      * @param jobId 
      */
     readWorkloadsWorkloadGet(skip?: number, limit?: number, filterString?: string, userId?: number, jobId?: number, extraHttpRequestParams?: any): Observable<Array<Workload>>;
+
+    /**
+     * Regenerate Order Bundle Pdf
+     * 
+     * @param orderBundleId 
+     */
+    regenerateOrderBundlePdfOrderBundlePdfOrderBundleIdPut(orderBundleId: number, extraHttpRequestParams?: any): Observable<OrderBundle>;
 
     /**
      * Reset
@@ -1694,10 +2167,42 @@ export interface DefaultServiceInterface {
     testArchiveWorkDaysTestArchiveWorkDaysGet(extraHttpRequestParams?: any): Observable<any>;
 
     /**
+     * Test Csv
+     * 
+     */
+    testCsvTestCsvGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
+     * Test Mail
+     * 
+     */
+    testMailTestMailGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
+     * Test Reusable
+     * 
+     */
+    testReusableTestReusableGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
      * Test
      * 
      */
     testTestGet(extraHttpRequestParams?: any): Observable<any>;
+
+    /**
+     * Toggle Article Favorite
+     * 
+     * @param articleId 
+     */
+    toggleArticleFavoriteArticleFavoriteArticleIdPost(articleId: number, extraHttpRequestParams?: any): Observable<Article>;
+
+    /**
+     * Toggle Supplier Favorite
+     * 
+     * @param supplierId 
+     */
+    toggleSupplierFavoriteSupplierFavoriteSupplierIdPost(supplierId: number, extraHttpRequestParams?: any): Observable<Supplier>;
 
     /**
      * Unlock Client
@@ -1705,6 +2210,13 @@ export interface DefaultServiceInterface {
      * @param clientId 
      */
     unlockClientClientUnlockClientIdPost(clientId: number, extraHttpRequestParams?: any): Observable<boolean>;
+
+    /**
+     * Unlock Delivery Note
+     * 
+     * @param deliveryNoteId 
+     */
+    unlockDeliveryNoteDeliveryNoteUnlockDeliveryNoteIdPost(deliveryNoteId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
      * Unlock Ingoing Invoice
@@ -1763,6 +2275,20 @@ export interface DefaultServiceInterface {
     unlockUserUsersUnlockUserIdGet(userId: number, extraHttpRequestParams?: any): Observable<boolean>;
 
     /**
+     * Unpay
+     * 
+     * @param ingoingInvoiceId 
+     */
+    unpayIngoingInvoicePaymentIngoingInvoiceIdUnpayPost(ingoingInvoiceId: number, extraHttpRequestParams?: any): Observable<IngoingInvoice>;
+
+    /**
+     * Unpay
+     * 
+     * @param outgoingInvoiceId 
+     */
+    unpayOutgoingInvoicePaymentOutgoingInvoiceIdUnpayPost(outgoingInvoiceId: number, extraHttpRequestParams?: any): Observable<OutgoingInvoice>;
+
+    /**
      * Update Article
      * 
      * @param articleId 
@@ -1776,7 +2302,7 @@ export interface DefaultServiceInterface {
      * @param calendarEntryId 
      * @param calendarEntryCreate 
      */
-    updateCalendarEntryCalendarCalendarEntryIdPut(calendarEntryId: any, calendarEntryCreate: CalendarEntryCreate, extraHttpRequestParams?: any): Observable<CalendarEntry>;
+    updateCalendarEntryCalendarCalendarEntryIdPut(calendarEntryId: number, calendarEntryCreate: CalendarEntryCreate, extraHttpRequestParams?: any): Observable<CalendarEntry>;
 
     /**
      * Update Category
@@ -1819,6 +2345,14 @@ export interface DefaultServiceInterface {
     updateDeliveryNoteDeliveryNoteDeliveryNoteIdPut(deliveryNoteId: number, deliveryNoteUpdate: DeliveryNoteUpdate, extraHttpRequestParams?: any): Observable<DeliveryNote>;
 
     /**
+     * Update Info Page
+     * 
+     * @param id 
+     * @param infoPageUpdate 
+     */
+    updateInfoPageInfoPageIdPut(id: number, infoPageUpdate: InfoPageUpdate, extraHttpRequestParams?: any): Observable<InfoPage>;
+
+    /**
      * Update Ingoing Invoice
      * 
      * @param ingoingInvoiceId 
@@ -1835,14 +2369,6 @@ export interface DefaultServiceInterface {
     updateJobJobJobIdPut(jobId: number, jobUpdate: JobUpdate, extraHttpRequestParams?: any): Observable<Job>;
 
     /**
-     * Update Job Path
-     * 
-     * @param jobId 
-     * @param jobPath 
-     */
-    updateJobPathJobPathJobIdPost(jobId: number, jobPath: string, extraHttpRequestParams?: any): Observable<Job>;
-
-    /**
      * Update Job Status
      * 
      * @param jobId 
@@ -1851,12 +2377,20 @@ export interface DefaultServiceInterface {
     updateJobStatusJobStatusJobIdPost(jobId: number, jobStatus: JobStatusType, extraHttpRequestParams?: any): Observable<JobStatusType>;
 
     /**
+     * Update Maintenance
+     * 
+     * @param maintenanceId 
+     * @param maintenanceUpdate 
+     */
+    updateMaintenanceMaintenanceMaintenanceIdPost(maintenanceId: number, maintenanceUpdate: MaintenanceUpdate, extraHttpRequestParams?: any): Observable<Maintenance>;
+
+    /**
      * Update Note Entry
      * 
      * @param noteId 
-     * @param noteCreate 
+     * @param noteUpdate 
      */
-    updateNoteEntryNoteNoteIdPut(noteId: number, noteCreate: NoteCreate, extraHttpRequestParams?: any): Observable<Note>;
+    updateNoteEntryNoteNoteIdPut(noteId: number, noteUpdate: NoteUpdate, extraHttpRequestParams?: any): Observable<Note>;
 
     /**
      * Update Offer
@@ -1880,7 +2414,7 @@ export interface DefaultServiceInterface {
      * @param orderedArticleId 
      * @param orderedArticleCreate 
      */
-    updateOrderedArticleOrderArticleOrderedArticleIdPut(orderedArticleId: number, orderedArticleCreate: OrderedArticleCreate, extraHttpRequestParams?: any): Observable<OrderedArticle>;
+    updateOrderedArticleOrderedArticleOrderedArticleIdPut(orderedArticleId: number, orderedArticleCreate: OrderedArticleCreate, extraHttpRequestParams?: any): Observable<OrderedArticle>;
 
     /**
      * Update Ordered Article Price
@@ -1908,18 +2442,26 @@ export interface DefaultServiceInterface {
     /**
      * Update Recalculation
      * 
-     * @param recalculationId 
+     * @param jobId 
      * @param recalculationUpdate 
      */
-    updateRecalculationRecalculationRecalculationIdPut(recalculationId: number, recalculationUpdate: RecalculationUpdate, extraHttpRequestParams?: any): Observable<Recalculation>;
+    updateRecalculationRecalculationJobIdPut(jobId: number, recalculationUpdate: RecalculationUpdate, extraHttpRequestParams?: any): Observable<Recalculation>;
+
+    /**
+     * Update Service
+     * 
+     * @param serviceId 
+     * @param serviceUpdate 
+     */
+    updateServiceServiceServiceIdPost(serviceId: number, serviceUpdate: ServiceUpdate, extraHttpRequestParams?: any): Observable<Service>;
 
     /**
      * Update Stock
      * 
      * @param stockId 
-     * @param stockCreate 
+     * @param stockUpdate 
      */
-    updateStockStockStockIdPut(stockId: number, stockCreate: StockCreate, extraHttpRequestParams?: any): Observable<Stock>;
+    updateStockStockStockIdPut(stockId: number, stockUpdate: StockUpdate, extraHttpRequestParams?: any): Observable<Stock>;
 
     /**
      * Update Subjob
@@ -1944,6 +2486,14 @@ export interface DefaultServiceInterface {
      * @param technicalDataUpdate 
      */
     updateTechnicalDataTechnicalDataTechnicalDataIdPut(technicalDataId: number, technicalDataUpdate: TechnicalDataUpdate, extraHttpRequestParams?: any): Observable<TechnicalData>;
+
+    /**
+     * Update Template Paint
+     * 
+     * @param templatePaintId 
+     * @param templatePaintUpdate 
+     */
+    updateTemplatePaintTemplatePaintTemplatePaintIdPut(templatePaintId: number, templatePaintUpdate: TemplatePaintUpdate, extraHttpRequestParams?: any): Observable<TemplatePaint>;
 
     /**
      * Update Unit
@@ -1991,5 +2541,27 @@ export interface DefaultServiceInterface {
      * @param workDayUpdate 
      */
     updateWorkDayWorkDayWorkDayIdPut(workDayId: number, workDayUpdate: WorkDayUpdate, extraHttpRequestParams?: any): Observable<WorkDay>;
+
+    /**
+     * Update Workload
+     * 
+     * @param workloadId 
+     * @param workloadUpdate 
+     */
+    updateWorkloadWorkloadWorkloadIdPut(workloadId: number, workloadUpdate: WorkloadUpdate, extraHttpRequestParams?: any): Observable<Workload>;
+
+    /**
+     * Upload Ingoing Invoice Xml As String
+     * 
+     * @param xmlFile 
+     */
+    uploadIngoingInvoiceXmlAsStringIngoingInvoiceUploadXmlAsStringPost(xmlFile: Array<XmlFile>, extraHttpRequestParams?: any): Observable<Array<IngoingInvoice>>;
+
+    /**
+     * Upload Ingoing Invoice Xml
+     * 
+     * @param requestBody 
+     */
+    uploadIngoingInvoiceXmlIngoingInvoiceUploadXmlPost(requestBody: Array<Blob>, extraHttpRequestParams?: any): Observable<Array<IngoingInvoice>>;
 
 }

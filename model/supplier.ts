@@ -11,7 +11,6 @@
  */
 import { Address } from './address';
 import { Language } from './language';
-import { Article } from './article';
 import { OrderableType } from './orderableType';
 import { Lock } from './lock';
 
@@ -30,6 +29,6 @@ export interface Supplier {
     destination_code: string;
     address: Address;
     language: Language;
-    articles?: Array<Article>;
+    favorite: boolean;
 }
 

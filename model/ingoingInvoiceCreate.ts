@@ -9,13 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OrderedArticleCreate } from './orderedArticleCreate';
+import { DescriptiveArticleCreate } from './descriptiveArticleCreate';
 
 
 export interface IngoingInvoiceCreate { 
     number: string;
     name: string;
     date: string;
-    articles: Array<OrderedArticleCreate>;
+    total: number;
+    iva: string;
+    cf: string;
+    articles: Array<DescriptiveArticleCreate>;
 }
 

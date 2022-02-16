@@ -9,11 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Text } from './text';
 
 
 export interface Country { 
     code: string;
-    name: string;
     id: number;
+    name: Text;
 }
 

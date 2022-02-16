@@ -21,5 +21,7 @@ export interface ArticleCreate {
     description_it: string;
     category_ids: Array<number>;
     vat_id: number;
+    supplier_id?: number;
+    favorite?: boolean;
 }
 

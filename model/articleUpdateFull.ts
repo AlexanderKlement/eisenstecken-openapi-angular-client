@@ -20,6 +20,7 @@ export interface ArticleUpdateFull {
     description_de: string;
     description_it: string;
     vat_id: number;
+    favorite?: boolean;
     category_ids: Array<number>;
 }
 

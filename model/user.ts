@@ -26,5 +26,8 @@ export interface User {
     rights?: Array<Right>;
     employee: boolean;
     office: boolean;
+    hours: boolean;
+    chat: boolean;
+    position: string;
 }
 

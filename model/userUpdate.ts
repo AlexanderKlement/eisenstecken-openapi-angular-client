@@ -21,5 +21,8 @@ export interface UserUpdate {
     dial: string;
     employee: boolean;
     office: boolean;
+    hours: boolean;
+    chat: boolean;
+    position: string;
 }
 

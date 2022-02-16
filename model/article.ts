@@ -26,6 +26,7 @@ export interface Article {
     description: Text;
     categories: Array<Category>;
     vat: Vat;
+    favorite: boolean;
     deleted: boolean;
 }
 

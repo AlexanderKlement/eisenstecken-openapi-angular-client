@@ -18,6 +18,9 @@ export interface OrderedArticle {
     discount: number;
     custom_description: string;
     price: number;
+    comment: string;
+    position: string;
+    request: boolean;
     id: number;
     ordered_unit: Unit;
     article: Article;

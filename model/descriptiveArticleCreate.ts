@@ -20,5 +20,6 @@ export interface DescriptiveArticleCreate {
     alternative: boolean;
     descriptive_articles?: Array<DescriptiveArticleCreate>;
     vat_id: number;
+    unit_id?: number;
 }
 
